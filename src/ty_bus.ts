@@ -9,7 +9,7 @@ export class TyBus<KnownDrivers extends Record<string, Driver>> {
     this.#drivers = config.drivers
   }
 
-  createQueue() {
+  createQueue({}: { defaultDriver: keyof KnownDrivers | undefined }) {
     console.log(this.#defaultDriverName)
     console.log(this.#drivers)
   }
