@@ -1,0 +1,15 @@
+node_modules
+build
+coverage
+
+# Build tools specific
+npm-debug.log
+yarn-error.log
+
+# Editors specific
+.fleet
+.idea
+.vscode
+
+# Static export
+dist
