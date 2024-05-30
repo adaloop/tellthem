@@ -30,13 +30,15 @@
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.5.22",
     "@types/node": "^20.12.13",
+    "@vinejs/vine": "^2.0.0",
     "c8": "^9.1.0",
     "del-cli": "^5.1.0",
     "eslint": "^9.3.0",
     "prettier": "^3.2.5",
     "release-it": "^17.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "zod": "^3.23.8"
   },
   "peerDependenciesMeta": {},
   "author": "tom-brulin",

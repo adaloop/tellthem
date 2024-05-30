@@ -1,16 +1,16 @@
-import { Driver, TyBusConfig } from './types/main.js'
+import { ChannelConfig, ServiceConfig, TyBusConfig } from './types/main.js'
+import { Channel } from './channel.js'
 
-export class TyBus<KnownDrivers extends Record<string, Driver>> {
-  readonly #defaultDriverName: keyof KnownDrivers | undefined
-  readonly #drivers: KnownDrivers
+export class TyBus<KnownServices extends Record<string, ServiceConfig>> {
+  readonly #defaultServiceName: keyof KnownServices | undefined
+  readonly #services: KnownServices
 
-  constructor(config: TyBusConfig<KnownDrivers>) {
-    this.#defaultDriverName = config.default
-    this.#drivers = config.drivers
+  constructor(config: TyBusConfig<KnownServices>) {
+    this.#defaultServiceName = config.default
+    this.#services = config.services
   }
 
-  createQueue({}: { defaultDriver: keyof KnownDrivers | undefined }) {
-    console.log(this.#defaultDriverName)
-    console.log(this.#drivers)
+  channel<Payload>(config: ChannelConfig<KnownServices, Payload>): Channel<KnownServices, Payload> {
+    return new Channel<KnownServices, Payload>(this, config)
   }
 }
