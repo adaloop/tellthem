@@ -1,4 +1,4 @@
-import { Driver, ServiceConfig } from './types/main.js'
+import { Driver, ServiceConfig, SubscribeHandler } from './types/main.js'
 import { Channel } from './channel.js'
 
 export class Bus<KnownServices extends Record<string, ServiceConfig>, Payload> {
@@ -8,7 +8,7 @@ export class Bus<KnownServices extends Record<string, ServiceConfig>, Payload> {
     this.#driver = driver
   }
 
-  subscribe(channel: Channel<KnownServices, Payload>, handler: (payload: Payload) => void) {}
+  subscribe(channel: Channel<KnownServices, Payload>, handler: SubscribeHandler<Payload>) {}
 
   publish(channel: Channel<KnownServices, Payload>, payload: Payload) {}
 }

@@ -1,4 +1,4 @@
-import { ChannelConfig, ChannelEncoder, ServiceConfig } from './types/main.js'
+import { ChannelConfig, ChannelEncoder, ServiceConfig, SubscribeHandler } from './types/main.js'
 import { TyBus } from './ty_bus.js'
 import { Bus } from './bus.js'
 import { RuntimeException } from '@poppinss/utils'
@@ -62,7 +62,7 @@ class ChannelAction<KnownServices extends Record<string, ServiceConfig>, Payload
     this.#bus.publish(this.#channel, payload)
   }
 
-  subscribe(handler: (payload: Payload) => void) {
+  subscribe(handler: SubscribeHandler<Payload>) {
     this.#bus.subscribe(this.#channel, handler)
   }
 }

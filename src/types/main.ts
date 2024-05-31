@@ -31,3 +31,5 @@ export type Serializable =
   | null
   | Serializable[]
   | { [key: string]: Serializable }
+
+export type SubscribeHandler<T> = (payload: T) => void
