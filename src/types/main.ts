@@ -15,11 +15,16 @@ export interface Driver {
   publish: <KnownServices extends Record<string, ServiceConfig>, Payload>(
     channel: Channel<KnownServices, Payload>,
     payload: Payload
-  ) => void
+  ) => Promise<void>
   subscribe: <KnownServices extends Record<string, ServiceConfig>, Payload>(
     channel: Channel<KnownServices, Payload>,
     handler: SubscribeHandler<Payload>
-  ) => void
+  ) => Promise<void>
+  unsubscribe: <KnownServices extends Record<string, ServiceConfig>, Payload>(
+    channel: Channel<KnownServices, Payload>
+  ) => Promise<void>
+  disconnect: () => Promise<void>
+  onReconnect: (callback: () => void) => void
 }
 
 export interface ChannelConfig<KnownServices extends Record<string, ServiceConfig>, Payload> {

@@ -8,7 +8,11 @@ export class Bus<KnownServices extends Record<string, ServiceConfig>, Payload> {
     this.#driver = driver
   }
 
-  subscribe(channel: Channel<KnownServices, Payload>, handler: SubscribeHandler<Payload>) {}
+  subscribe(channel: Channel<KnownServices, Payload>, handler: SubscribeHandler<Payload>) {
+    return this.#driver.subscribe(channel, handler)
+  }
 
-  publish(channel: Channel<KnownServices, Payload>, payload: Payload) {}
+  publish(channel: Channel<KnownServices, Payload>, payload: Payload) {
+    return this.#driver.publish(channel, payload)
+  }
 }

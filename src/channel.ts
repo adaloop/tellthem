@@ -59,10 +59,10 @@ class ChannelAction<KnownServices extends Record<string, ServiceConfig>, Payload
   }
 
   publish(payload: Payload) {
-    this.#bus.publish(this.#channel, payload)
+    return this.#bus.publish(this.#channel, payload)
   }
 
   subscribe(handler: SubscribeHandler<Payload>) {
-    this.#bus.subscribe(this.#channel, handler)
+    return this.#bus.subscribe(this.#channel, handler)
   }
 }

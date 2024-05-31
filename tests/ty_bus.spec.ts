@@ -1,6 +1,6 @@
 import { test } from '@japa/runner'
 import { TyBus } from '../src/ty_bus.js'
-import { memoru } from '../src/drivers/memory.js'
+import { memory } from '../src/drivers/memory.js'
 
 test.group('TyBus', () => {
   test('should cache bus', ({ assert }) => {
@@ -8,7 +8,7 @@ test.group('TyBus', () => {
       default: 'memory',
       services: {
         memory: {
-          driver: memoru(),
+          driver: memory(),
         },
       },
     })

@@ -2,7 +2,7 @@ import { test } from '@japa/runner'
 import { TyBus } from '../../src/ty_bus.js'
 import { ZodJsonEncoder } from '../../src/encoders/zod_json_encoder.js'
 import { z } from 'zod'
-import { memoru } from '../../src/drivers/memory.js'
+import { memory } from '../../src/drivers/memory.js'
 
 test.group('Encoders - Zod Json Encoder', () => {
   test('should encode and decode', ({ assert }) => {
@@ -41,7 +41,7 @@ test.group('Encoders - Zod Json Encoder', () => {
       default: 'memory',
       services: {
         memory: {
-          driver: memoru(),
+          driver: memory(),
         },
       },
     })

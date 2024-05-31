@@ -1,7 +1,7 @@
 import { Driver, ServiceConfig, SubscribeHandler } from '../types/main.js'
 import { Channel } from '../channel.js'
 
-export function memoru() {
+export function memory() {
   return () => new MemoryDriver()
 }
 
@@ -15,7 +15,7 @@ export class MemoryDriver implements Driver {
 
   receivedMessages: any[] = []
 
-  publish<KnownServices extends Record<string, ServiceConfig>, Payload>(
+  async publish<KnownServices extends Record<string, ServiceConfig>, Payload>(
     channel: Channel<KnownServices, Payload>,
     payload: Payload
   ) {
@@ -30,7 +30,7 @@ export class MemoryDriver implements Driver {
     }
   }
 
-  subscribe<KnownServices extends Record<string, ServiceConfig>, Payload>(
+  async subscribe<KnownServices extends Record<string, ServiceConfig>, Payload>(
     channel: Channel<KnownServices, Payload>,
     handler: SubscribeHandler<Payload>
   ) {
@@ -40,6 +40,18 @@ export class MemoryDriver implements Driver {
 
     MemoryDriver.#subscriptions.set(channel.name, handlers)
   }
+
+  async unsubscribe<KnownServices extends Record<string, ServiceConfig>, Payload>(
+    channel: Channel<KnownServices, Payload>
+  ) {
+    MemoryDriver.#subscriptions.set(channel.name, [])
+  }
+
+  async disconnect() {
+    MemoryDriver.#subscriptions.clear()
+  }
+
+  onReconnect(_callback: () => void) {}
 
   #wrapHandler(handler: SubscribeHandler<any>) {
     return (message: any) => {
