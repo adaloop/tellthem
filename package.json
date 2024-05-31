@@ -62,5 +62,8 @@
       "releaseName": "v${version}",
       "web": true
     }
+  },
+  "dependencies": {
+    "@poppinss/utils": "^6.7.3"
   }
 }
