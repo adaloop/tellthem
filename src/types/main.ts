@@ -1,13 +1,26 @@
+import { Channel } from '../channel.js'
+
 export interface TyBusConfig<KnownServices extends Record<string, ServiceConfig>> {
   default?: keyof KnownServices
   services: KnownServices
 }
 
 export interface ServiceConfig {
-  driver: Driver
+  driver: DriverFactory
 }
 
-export interface Driver {}
+export type DriverFactory = () => Driver
+
+export interface Driver {
+  publish: <KnownServices extends Record<string, ServiceConfig>, Payload>(
+    channel: Channel<KnownServices, Payload>,
+    payload: Payload
+  ) => void
+  subscribe: <KnownServices extends Record<string, ServiceConfig>, Payload>(
+    channel: Channel<KnownServices, Payload>,
+    handler: SubscribeHandler<Payload>
+  ) => void
+}
 
 export interface ChannelConfig<KnownServices extends Record<string, ServiceConfig>, Payload> {
   name: string

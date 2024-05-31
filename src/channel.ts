@@ -6,16 +6,16 @@ import { RuntimeException } from '@poppinss/utils'
 export class Channel<KnownServices extends Record<string, ServiceConfig>, Payload> {
   readonly #tyBus: TyBus<KnownServices>
 
-  readonly #name: string
   readonly #defaultServiceName?: keyof KnownServices
-  readonly #encoder: ChannelEncoder<Payload>
+  readonly name: string
+  readonly encoder: ChannelEncoder<Payload>
 
   constructor(tyBus: TyBus<KnownServices>, config: ChannelConfig<KnownServices, Payload>) {
     this.#tyBus = tyBus
 
-    this.#name = config.name
     this.#defaultServiceName = config.defaultService
-    this.#encoder = config.encoder
+    this.name = config.name
+    this.encoder = config.encoder
   }
 
   use(serviceName?: keyof KnownServices): ChannelAction<KnownServices, Payload> {

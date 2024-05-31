@@ -26,7 +26,7 @@ export class TyBus<KnownServices extends Record<string, ServiceConfig>> {
 
     const service = this.#services[serviceName]
 
-    const bus = new Bus<KnownServices, Payload>(service.driver)
+    const bus = new Bus<KnownServices, Payload>(service.driver())
     this.#busesCache[serviceName] = bus as Bus<KnownServices, unknown>
 
     return bus
