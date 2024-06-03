@@ -15,4 +15,8 @@ export class Bus<KnownServices extends Record<string, ServiceConfig>, Payload> {
   publish(channel: Channel<KnownServices, Payload>, payload: Payload) {
     return this.#driver.publish(channel, payload)
   }
+
+  disconnect() {
+    return this.#driver.disconnect()
+  }
 }
