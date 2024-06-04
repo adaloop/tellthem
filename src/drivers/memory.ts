@@ -1,7 +1,7 @@
-import { Driver, ServiceConfig, SubscribeHandler } from '../types/main.js'
-import { Channel } from '../channel.js'
+import { Driver, DriverFactory } from '../types/driver.js'
+import { Serializable, SubscribeHandler } from '../types/main.js'
 
-export function memory() {
+export function memory(): DriverFactory {
   return () => new MemoryDriver()
 }
 
@@ -13,38 +13,26 @@ export class MemoryDriver implements Driver {
     }>
   > = new Map()
 
-  receivedMessages: any[] = []
+  async publish<T extends Serializable>(channel: string, message: T) {
+    const handlers = MemoryDriver.#subscriptions.get(channel)
 
-  async publish<KnownServices extends Record<string, ServiceConfig>, Payload>(
-    channel: Channel<KnownServices, Payload>,
-    payload: Payload
-  ) {
-    const handlers = MemoryDriver.#subscriptions.get(channel.name)
-
-    if (!handlers) {
-      return
-    }
+    if (!handlers) return
 
     for (const { handler } of handlers) {
-      handler(payload)
+      handler(message)
     }
   }
 
-  async subscribe<KnownServices extends Record<string, ServiceConfig>, Payload>(
-    channel: Channel<KnownServices, Payload>,
-    handler: SubscribeHandler<Payload>
-  ) {
-    const handlers = MemoryDriver.#subscriptions.get(channel.name) || []
+  async subscribe<T extends Serializable>(channel: string, handler: SubscribeHandler<T>) {
+    const handlers = MemoryDriver.#subscriptions.get(channel) || []
 
-    handlers.push({ handler: this.#wrapHandler(handler) })
+    handlers.push({ handler })
 
-    MemoryDriver.#subscriptions.set(channel.name, handlers)
+    MemoryDriver.#subscriptions.set(channel, handlers)
   }
 
-  async unsubscribe<KnownServices extends Record<string, ServiceConfig>, Payload>(
-    channel: Channel<KnownServices, Payload>
-  ) {
-    MemoryDriver.#subscriptions.set(channel.name, [])
+  async unsubscribe(channel: string) {
+    MemoryDriver.#subscriptions.delete(channel)
   }
 
   async disconnect() {
@@ -52,11 +40,4 @@ export class MemoryDriver implements Driver {
   }
 
   onReconnect(_callback: () => void) {}
-
-  #wrapHandler(handler: SubscribeHandler<any>) {
-    return (message: any) => {
-      this.receivedMessages.push(message)
-      handler(message)
-    }
-  }
 }
