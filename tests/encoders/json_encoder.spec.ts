@@ -16,4 +16,12 @@ test.group('Encoders - Json', () => {
 
     assert.deepEqual({ payload }, decodedMessage)
   })
+
+  test('should not decode', ({ assert }) => {
+    const encoder = new JsonEncoder()
+
+    const decodedMessage = encoder.decode('"')
+
+    assert.isNull(decodedMessage)
+  })
 })
