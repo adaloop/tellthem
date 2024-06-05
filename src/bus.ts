@@ -2,6 +2,7 @@ import { Driver } from './types/driver.js'
 import { ChannelMessageSubscribeHandler } from './types/main.js'
 import { Encoder } from './types/encoder.js'
 import { ChannelMessage } from './types/channel.js'
+import { Subscription } from './channel.js'
 
 export class Bus {
   readonly #driver: Driver
@@ -10,12 +11,17 @@ export class Bus {
     this.#driver = driver
   }
 
-  publish(channel: string, message: ChannelMessage<any>, encoder: Encoder<any>) {
-    return this.#driver.publish(channel, message, encoder)
+  publish(channel: string, encoder: Encoder<any>, message: ChannelMessage<any>) {
+    return this.#driver.publish(channel, encoder, message)
   }
 
-  subscribe(channel: string, handler: ChannelMessageSubscribeHandler<any>, encoder: Encoder<any>) {
-    return this.#driver.subscribe(channel, handler, encoder)
+  subscribe(
+    channel: string,
+    encoder: Encoder<any>,
+    handler: ChannelMessageSubscribeHandler<any>,
+    subscription: Subscription
+  ) {
+    return this.#driver.subscribe(channel, encoder, handler, subscription)
   }
 
   unsubscribe(channel: string) {

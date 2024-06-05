@@ -1,4 +1,7 @@
 import { ChannelMessage } from './channel.js'
+import { Exception } from '@poppinss/utils'
+
+export type OnFailHandler = (exception: Exception) => void
 
 export type SubscribeHandler<T extends Serializable> = (payload: T) => void | Promise<void>
 

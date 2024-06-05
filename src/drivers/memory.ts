@@ -2,6 +2,7 @@ import { Driver, DriverFactory } from '../types/driver.js'
 import { ChannelMessageSubscribeHandler, Serializable } from '../types/main.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
+import { Subscription } from '../channel.js'
 
 export function memory(): DriverFactory {
   return () => new MemoryDriver()
@@ -17,8 +18,8 @@ export class MemoryDriver implements Driver {
 
   async publish<T extends Serializable>(
     channel: string,
-    message: ChannelMessage<T>,
-    _encoder: Encoder<T>
+    _encoder: Encoder<T>,
+    message: ChannelMessage<T>
   ) {
     const handlers = MemoryDriver.#subscriptions.get(channel)
 
@@ -31,8 +32,9 @@ export class MemoryDriver implements Driver {
 
   async subscribe<T extends Serializable>(
     channel: string,
+    _encoder: Encoder<T>,
     handler: ChannelMessageSubscribeHandler<T>,
-    _encoder: Encoder<T>
+    _subscription: Subscription
   ) {
     const handlers = MemoryDriver.#subscriptions.get(channel) || []
 

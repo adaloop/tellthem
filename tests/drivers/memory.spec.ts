@@ -1,6 +1,7 @@
 import { test } from '@japa/runner'
 import { MemoryDriver } from '../../src/drivers/memory.js'
 import { JsonEncoder } from '../../src/encoders/json_encoder.js'
+import { Subscription } from '../../src/channel.js'
 
 test.group('Driver - Memory', () => {
   test('should receive the message emitted', async ({ assert, cleanup }, done) => {
@@ -14,14 +15,15 @@ test.group('Driver - Memory', () => {
 
     await driver.subscribe(
       'test-channel',
+      encoder,
       (message) => {
         assert.deepEqual(message, { payload: 'test' })
         done()
       },
-      encoder
+      new Subscription()
     )
 
-    await driver.publish('test-channel', { payload: 'test' }, encoder)
+    await driver.publish('test-channel', encoder, { payload: 'test' })
   }).waitForDone()
 
   test('all subscribers should receive the message emitted', async ({ assert, cleanup }, done) => {
@@ -35,22 +37,24 @@ test.group('Driver - Memory', () => {
 
     await driver.subscribe(
       'test-channel',
+      encoder,
       (message) => {
         assert.deepEqual(message, { payload: 'test' })
       },
-      encoder
+      new Subscription()
     )
 
     await driver.subscribe(
       'test-channel',
+      encoder,
       (message) => {
         assert.deepEqual(message, { payload: 'test' })
         done()
       },
-      encoder
+      new Subscription()
     )
 
-    await driver.publish('test-channel', { payload: 'test' }, encoder)
+    await driver.publish('test-channel', encoder, { payload: 'test' })
   }).waitForDone()
 
   test('should not receive the message emitted if unsubscribed', async ({ assert, cleanup }) => {
@@ -65,13 +69,14 @@ test.group('Driver - Memory', () => {
 
     await driver.subscribe(
       'test-channel',
+      encoder,
       (_message) => {
         assert.fail('should not receive the message')
       },
-      encoder
+      new Subscription()
     )
 
     await driver.unsubscribe('test-channel')
-    await driver.publish('test-channel', { payload: 'test' }, encoder)
+    await driver.publish('test-channel', encoder, { payload: 'test' })
   })
 })

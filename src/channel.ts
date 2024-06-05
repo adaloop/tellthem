@@ -1,5 +1,5 @@
 import { BusConfig } from './types/bus.js'
-import { Serializable, SubscribeHandler } from './types/main.js'
+import { OnFailHandler, Serializable, SubscribeHandler } from './types/main.js'
 import { TellThem } from './tell_them.js'
 import { ChannelConfig } from './types/channel.js'
 import { Encoder } from './types/encoder.js'
@@ -56,19 +56,32 @@ class ChannelAction<KnownBuses extends Record<string, BusConfig>, Payload extend
     this.#channel = channel
   }
 
-  async publish(payload: Payload) {
-    return this.#bus.publish(this.#channel.name, { payload }, this.#channel.encoder)
+  publish(payload: Payload) {
+    return this.#bus.publish(this.#channel.name, this.#channel.encoder, { payload })
   }
 
-  async subscribe(handler: SubscribeHandler<Payload>) {
-    return this.#bus.subscribe(
+  async subscribe(handler: SubscribeHandler<Payload>): Promise<Subscription> {
+    const subscription = new Subscription()
+
+    await this.#bus.subscribe(
       this.#channel.name,
+      this.#channel.encoder,
       (message) => handler(message.payload),
-      this.#channel.encoder
+      subscription
     )
+
+    return subscription
   }
 
-  async unsubscribe() {
+  unsubscribe() {
     return this.#bus.unsubscribe(this.#channel.name)
+  }
+}
+
+export class Subscription {
+  onFailHandler?: OnFailHandler
+
+  onFail(handler: OnFailHandler) {
+    this.onFailHandler = handler
   }
 }

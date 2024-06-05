@@ -4,6 +4,8 @@ import { Redis, RedisOptions } from 'ioredis'
 import debug from '../utils/debug.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
+import { Subscription } from '../channel.js'
+import { E_FAILED_DECODE_MESSAGE } from '../errors.js'
 
 interface RedisDriverConfig extends RedisOptions {}
 
@@ -22,8 +24,8 @@ export class RedisDriver implements Driver {
 
   async publish<T extends Serializable>(
     channel: string,
-    message: ChannelMessage<T>,
-    encoder: Encoder<T>
+    encoder: Encoder<T>,
+    message: ChannelMessage<T>
   ) {
     const encoded = encoder.encode(message)
     this.#publisher.publish(channel, encoded)
@@ -31,8 +33,9 @@ export class RedisDriver implements Driver {
 
   async subscribe<T extends Serializable>(
     channel: string,
+    encoder: Encoder<T>,
     handler: ChannelMessageSubscribeHandler<T>,
-    encoder: Encoder<T>
+    subscription: Subscription
   ) {
     this.#subscriber.subscribe(channel, (err) => {
       if (err) throw err
@@ -48,7 +51,10 @@ export class RedisDriver implements Driver {
       const decoded = encoder.decode(message)
 
       if (!decoded) {
-        // handle fail decode
+        if (subscription.onFailHandler) {
+          subscription.onFailHandler(new E_FAILED_DECODE_MESSAGE())
+        }
+
         return
       }
 
