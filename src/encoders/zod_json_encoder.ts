@@ -3,6 +3,10 @@ import { z } from 'zod'
 import { Serializable } from '../types/main.js'
 import { ChannelMessage } from '../types/channel.js'
 
+export function zodJsonEncoder<T extends Serializable>(config: ZodJsonEncoderConfig<T>) {
+  return new ZodJsonEncoder<T>(config)
+}
+
 interface ZodJsonEncoderConfig<T> {
   schema: z.ZodSchema<T>
 }

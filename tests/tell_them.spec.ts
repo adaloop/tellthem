@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 import { TellThem } from '../src/tell_them.js'
 import { memory } from '../src/drivers/memory.js'
-import { JsonEncoder } from '../src/encoders/json_encoder.js'
+import { jsonEncoder } from '../src/encoders/json_encoder.js'
 import { Channel } from '../src/channel.js'
 
 test.group('TellThem', () => {
@@ -32,7 +32,7 @@ test.group('TellThem', () => {
     const channel = tellThem.channel({
       defaultBus: 'memory',
       name: 'test-channel',
-      encoder: new JsonEncoder(),
+      encoder: jsonEncoder(),
     })
 
     assert.instanceOf(channel, Channel)
