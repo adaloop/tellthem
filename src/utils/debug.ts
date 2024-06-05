@@ -1,3 +1,3 @@
 import { debuglog } from 'node:util'
 
-export default debuglog('tybus')
+export default debuglog('tellthem')
