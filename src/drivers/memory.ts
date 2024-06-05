@@ -1,5 +1,7 @@
 import { Driver, DriverFactory } from '../types/driver.js'
 import { Serializable, SubscribeHandler } from '../types/main.js'
+import { Encoder } from '../types/encoder.js'
+import { ChannelMessage } from '../types/channel.js'
 
 export function memory(): DriverFactory {
   return () => new MemoryDriver()
@@ -13,7 +15,11 @@ export class MemoryDriver implements Driver {
     }>
   > = new Map()
 
-  async publish<T extends Serializable>(channel: string, message: T) {
+  async publish<T extends Serializable>(
+    channel: string,
+    message: ChannelMessage<T>,
+    _encoder: Encoder<T>
+  ) {
     const handlers = MemoryDriver.#subscriptions.get(channel)
 
     if (!handlers) return
@@ -23,7 +29,11 @@ export class MemoryDriver implements Driver {
     }
   }
 
-  async subscribe<T extends Serializable>(channel: string, handler: SubscribeHandler<T>) {
+  async subscribe<T extends Serializable>(
+    channel: string,
+    handler: SubscribeHandler<T>,
+    _encoder: Encoder<T>
+  ) {
     const handlers = MemoryDriver.#subscriptions.get(channel) || []
 
     handlers.push({ handler })
