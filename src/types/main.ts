@@ -1,6 +1,8 @@
 import { ChannelMessage } from './channel.js'
 
-export type SubscribeHandler<T extends Serializable> = (
+export type SubscribeHandler<T extends Serializable> = (payload: T) => void | Promise<void>
+
+export type ChannelMessageSubscribeHandler<T extends Serializable> = (
   payload: ChannelMessage<T>
 ) => void | Promise<void>
 

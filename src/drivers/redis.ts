@@ -1,5 +1,5 @@
 import { Driver, DriverFactory } from '../types/driver.js'
-import { Serializable, SubscribeHandler } from '../types/main.js'
+import { ChannelMessageSubscribeHandler, Serializable } from '../types/main.js'
 import { Redis, RedisOptions } from 'ioredis'
 import debug from '../utils/debug.js'
 import { Encoder } from '../types/encoder.js'
@@ -31,7 +31,7 @@ export class RedisDriver implements Driver {
 
   async subscribe<T extends Serializable>(
     channel: string,
-    handler: SubscribeHandler<T>,
+    handler: ChannelMessageSubscribeHandler<T>,
     encoder: Encoder<T>
   ) {
     this.#subscriber.subscribe(channel, (err) => {

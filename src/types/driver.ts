@@ -1,4 +1,4 @@
-import { Serializable, SubscribeHandler } from './main.js'
+import { ChannelMessageSubscribeHandler, Serializable } from './main.js'
 import { Encoder } from './encoder.js'
 import { ChannelMessage } from './channel.js'
 
@@ -10,7 +10,7 @@ export interface Driver {
   ) => Promise<void>
   subscribe: <T extends Serializable>(
     channel: string,
-    handler: SubscribeHandler<T>,
+    handler: ChannelMessageSubscribeHandler<T>,
     encoder: Encoder<T>
   ) => Promise<void>
   unsubscribe: (channel: string) => Promise<void>
