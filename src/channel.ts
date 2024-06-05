@@ -4,6 +4,7 @@ import { TellThem } from './tell_them.js'
 import { ChannelConfig } from './types/channel.js'
 import { Encoder } from './types/encoder.js'
 import { Bus } from './bus.js'
+import { E_FAILED_CREATE_BUS } from './errors.js'
 
 export class Channel<KnownBuses extends Record<string, BusConfig>, Payload extends Serializable> {
   readonly #manager: TellThem<KnownBuses>
@@ -32,7 +33,7 @@ export class Channel<KnownBuses extends Record<string, BusConfig>, Payload exten
     }
 
     if (!bus) {
-      throw new Error(`Cannot create an instance of bus for channel "${this.name}"`)
+      throw new E_FAILED_CREATE_BUS()
     }
 
     return new ChannelAction<KnownBuses, Payload>(bus, this)
@@ -44,6 +45,10 @@ export class Channel<KnownBuses extends Record<string, BusConfig>, Payload exten
 
   publish(payload: Payload) {
     return this.use().publish(payload)
+  }
+
+  unsubscribe() {
+    return this.use().unsubscribe()
   }
 }
 

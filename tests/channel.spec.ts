@@ -71,9 +71,6 @@ test.group('Channel', () => {
       encoder: jsonEncoder(),
     })
 
-    assert.throws(
-      () => channel.use().publish({ test: true }),
-      'Cannot create an instance of bus for channel "test-channel"'
-    )
+    assert.throws(() => channel.use().publish({ test: true }), 'Failed to create instance of bus')
   })
 })

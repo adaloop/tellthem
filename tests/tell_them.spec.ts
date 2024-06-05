@@ -52,4 +52,23 @@ test.group('TellThem', () => {
 
     assert.strictEqual(bus1, bus2)
   })
+
+  test('should received the message emitted on standalone channel', ({ assert }, done) => {
+    assert.plan(1)
+
+    const tellThem = new TellThem({
+      buses: {
+        memory: {
+          driver: memory(),
+        },
+      },
+    })
+
+    tellThem.use('memory').subscribe('test-standalone-channel', jsonEncoder(), (message) => {
+      assert.deepEqual(message, 'test-message')
+      done()
+    })
+
+    tellThem.use('memory').publish('test-standalone-channel', jsonEncoder(), 'test-message')
+  }).waitForDone()
 })
