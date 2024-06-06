@@ -5,6 +5,8 @@ export const E_FAILED_DECODE_MESSAGE = createError(
   'E_FAILED_DECODE_MESSAGE'
 )
 
+export const E_SUBSCRIPTION_FAILED = createError('Failed to subscribe', 'E_SUBSCRIPTION_FAILED')
+
 export const E_FAILED_CREATE_BUS = createError(
   'Failed to create instance of bus',
   'E_FAILED_CREATE_BUS'

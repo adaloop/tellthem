@@ -14,7 +14,7 @@ export function amqp(config: AmqpDriverConfig): DriverFactory {
 }
 
 export class AmqpDriver implements Driver {
-  #config: amqplib.Options.Connect
+  readonly #config: amqplib.Options.Connect
 
   #publisher?: amqplib.Connection
   #subscriber?: amqplib.Connection

@@ -29,6 +29,8 @@
     "@japa/expect-type": "^2.0.2",
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.5.22",
+    "@testcontainers/hivemq": "^10.9.0",
+    "@testcontainers/redis": "^10.9.0",
     "@types/amqplib": "^0.10.5",
     "@types/node": "^20.12.13",
     "@vinejs/vine": "^2.0.0",
@@ -37,6 +39,7 @@
     "del-cli": "^5.1.0",
     "eslint": "^9.3.0",
     "ioredis": "^5.4.1",
+    "mqtt": "^5.7.0",
     "prettier": "^3.2.5",
     "release-it": "^17.3.0",
     "testcontainers": "^10.9.0",
@@ -45,22 +48,25 @@
     "zod": "^3.23.8"
   },
   "dependencies": {
-    "@poppinss/utils": "^6.7.3",
-    "uninstall": "^0.0.0"
+    "@poppinss/utils": "^6.7.3"
   },
   "peerDependencies": {
     "amqplib": ">=0.10.0",
     "ioredis": ">=5.0.0",
+    "mqtt": ">=5.0.0",
     "zod": ">=3.0.0"
   },
   "peerDependenciesMeta": {
+    "amqplib": {
+      "optional": true
+    },
     "ioredis": {
       "optional": true
     },
-    "zod": {
+    "mqtt": {
       "optional": true
     },
-    "amqplib": {
+    "zod": {
       "optional": true
     }
   },

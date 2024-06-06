@@ -1,25 +1,33 @@
 import { Driver, DriverFactory } from '../types/driver.js'
 import { ChannelMessageSubscribeHandler, Serializable } from '../types/main.js'
-import { Redis, RedisOptions } from 'ioredis'
-import debug from '../utils/debug.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
 import { Subscription } from '../channel.js'
+import { connect, IClientOptions, MqttClient } from 'mqtt'
+import debug from '../utils/debug.js'
 import { E_FAILED_DECODE_MESSAGE, E_SUBSCRIPTION_FAILED } from '../errors.js'
 
-interface RedisDriverConfig extends RedisOptions {}
-
-export function redis(config: RedisDriverConfig): DriverFactory {
-  return () => new RedisDriver(config)
+interface MqttDriverConfig {
+  protocol?: 'mqtt' | 'mqtts'
+  host: string
+  port?: number
+  options?: IClientOptions
 }
 
-export class RedisDriver implements Driver {
-  readonly #publisher: Redis
-  readonly #subscriber: Redis
+export function mqtt(config: MqttDriverConfig): DriverFactory {
+  return () => new MqttDriver(config)
+}
 
-  constructor(config: RedisDriverConfig) {
-    this.#publisher = new Redis(config)
-    this.#subscriber = new Redis(config)
+export class MqttDriver implements Driver {
+  #client: MqttClient
+
+  constructor(config: MqttDriverConfig) {
+    config.protocol = config.protocol || 'mqtt'
+    config.port = config.port || 1883
+
+    const connectionString = `${config.protocol}://${config.host}:${config.port}`
+
+    this.#client = connect(connectionString, config.options)
   }
 
   async init() {}
@@ -30,7 +38,7 @@ export class RedisDriver implements Driver {
     message: ChannelMessage<T>
   ) {
     const encoded = encoder.encode(message)
-    this.#publisher.publish(channel, encoded)
+    await this.#client.publishAsync(channel, encoded)
   }
 
   async subscribe<T extends Serializable>(
@@ -39,20 +47,18 @@ export class RedisDriver implements Driver {
     handler: ChannelMessageSubscribeHandler<T>,
     subscription: Subscription
   ) {
-    this.#subscriber.subscribe(channel, (err) => {
+    this.#client.subscribe(channel, (err) => {
       if (err && subscription.onFailHandler) {
         subscription.onFailHandler(new E_SUBSCRIPTION_FAILED())
       }
     })
 
-    this.#subscriber.on('message', (receivedChannel: string, message: string) => {
-      receivedChannel = receivedChannel.toString()
-
-      if (channel !== receivedChannel) return
+    this.#client.on('message', (receivedChannel: string, message: Buffer | string) => {
+      if (receivedChannel !== channel) return
 
       debug('received message for channel "%s"', channel)
 
-      const decoded = encoder.decode(message)
+      const decoded = encoder.decode(message.toString())
 
       if (!decoded) {
         if (subscription.onFailHandler) {
@@ -67,15 +73,12 @@ export class RedisDriver implements Driver {
   }
 
   async unsubscribe(channel: string) {
-    this.#subscriber.unsubscribe(channel)
+    await this.#client.unsubscribeAsync(channel)
   }
 
   async disconnect() {
-    this.#publisher.disconnect()
-    this.#subscriber.disconnect()
+    await this.#client.endAsync()
   }
 
-  onReconnect(callback: () => void) {
-    this.#subscriber.on('reconnecting', callback)
-  }
+  onReconnect(_callback: () => void) {}
 }
