@@ -6,6 +6,7 @@ import { Serializable } from './types/main.js'
 import { Channel, Subscription } from './channel.js'
 import { E_FAILED_CREATE_BUS } from './errors.js'
 import { Encoder } from './types/encoder.js'
+import debug from './utils/debug.js'
 
 export class TellThem<KnownBuses extends Record<string, BusConfig>> {
   readonly defaultBusName: keyof KnownBuses | undefined
@@ -67,7 +68,9 @@ export class TellThem<KnownBuses extends Record<string, BusConfig>> {
       return cachedBus
     }
 
-    const bus = new Bus(this.#buses[busName].driver())
+    const driver = this.#buses[busName].driver()
+    driver.init().then(() => debug('init bus %s', busName))
+    const bus = new Bus(driver)
     this.#busesCache[busName] = bus
 
     return bus

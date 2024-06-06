@@ -22,6 +22,8 @@ export class RedisDriver implements Driver {
     this.#subscriber = new Redis(config)
   }
 
+  async init() {}
+
   async publish<T extends Serializable>(
     channel: string,
     encoder: Encoder<T>,

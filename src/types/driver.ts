@@ -4,6 +4,7 @@ import { ChannelMessage } from './channel.js'
 import { Subscription } from '../channel.js'
 
 export interface Driver {
+  init: () => Promise<void>
   publish: <T extends Serializable>(
     channel: string,
     encoder: Encoder<T>,

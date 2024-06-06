@@ -9,3 +9,8 @@ export const E_FAILED_CREATE_BUS = createError(
   'Failed to create instance of bus',
   'E_FAILED_CREATE_BUS'
 )
+
+export const E_DRIVER_NOT_INITIALIZED = createError(
+  'Driver not initialized',
+  'E_DRIVER_NOT_INITIALIZED'
+)

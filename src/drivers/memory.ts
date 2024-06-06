@@ -16,6 +16,8 @@ export class MemoryDriver implements Driver {
     }>
   > = new Map()
 
+  async init() {}
+
   async publish<T extends Serializable>(
     channel: string,
     _encoder: Encoder<T>,
