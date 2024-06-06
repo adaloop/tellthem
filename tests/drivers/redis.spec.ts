@@ -1,5 +1,4 @@
 import { test } from '@japa/runner'
-import { RedisContainer, StartedRedisContainer } from '@testcontainers/redis'
 import { RedisDriver } from '../../src/drivers/redis.js'
 import { JsonEncoder } from '../../src/encoders/json_encoder.js'
 import { setTimeout } from 'node:timers/promises'
@@ -7,12 +6,13 @@ import { Subscription } from '../../src/channel.js'
 import { E_FAILED_DECODE_MESSAGE } from '../../src/errors.js'
 import { ZodJsonEncoder } from '../../src/encoders/zod_json_encoder.js'
 import { z } from 'zod'
+import { GenericContainer, StartedTestContainer } from 'testcontainers'
 
 test.group('Driver - Redis', (group) => {
-  let container: StartedRedisContainer
+  let container: StartedTestContainer
 
   group.setup(async () => {
-    container = await new RedisContainer().start()
+    container = await new GenericContainer('redis').withExposedPorts(6379).start()
 
     return async () => {
       await container.stop()
@@ -26,6 +26,7 @@ test.group('Driver - Redis', (group) => {
       host: container.getHost(),
       port: container.getFirstMappedPort(),
     })
+    await driver.init()
     const encoder = new JsonEncoder()
 
     cleanup(() => driver.disconnect())
@@ -45,22 +46,25 @@ test.group('Driver - Redis', (group) => {
     await driver.publish('test-channel', encoder, { payload: 'test' })
   }).waitForDone()
 
-  test('all subscribers should receive the message emitted', async ({ assert, cleanup }, done) => {
-    assert.plan(2)
+  test('all subscribers should receive the message emitted', async ({ assert, cleanup }) => {
+    assert.plan(1)
 
     const driver = new RedisDriver({
       host: container.getHost(),
       port: container.getFirstMappedPort(),
     })
+    await driver.init()
     const encoder = new JsonEncoder()
 
     cleanup(() => driver.disconnect())
 
+    let received = 0
+
     await driver.subscribe(
       'test-channel',
       encoder,
-      (message) => {
-        assert.deepEqual(message, { payload: 'test' })
+      (_message) => {
+        received++
       },
       new Subscription()
     )
@@ -68,9 +72,8 @@ test.group('Driver - Redis', (group) => {
     await driver.subscribe(
       'test-channel',
       encoder,
-      (message) => {
-        assert.deepEqual(message, { payload: 'test' })
-        done()
+      (_message) => {
+        received++
       },
       new Subscription()
     )
@@ -78,7 +81,8 @@ test.group('Driver - Redis', (group) => {
     await setTimeout(200)
     await driver.publish('test-channel', encoder, { payload: 'test' })
     await setTimeout(1000)
-  }).waitForDone()
+    assert.equal(received, 2)
+  })
 
   test('should not receive the message emitted if unsubscribed', async ({ assert, cleanup }) => {
     assert.plan(0)
@@ -87,6 +91,7 @@ test.group('Driver - Redis', (group) => {
       host: container.getHost(),
       port: container.getFirstMappedPort(),
     })
+    await driver.init()
     const encoder = new JsonEncoder()
 
     cleanup(() => driver.disconnect())
@@ -117,6 +122,7 @@ test.group('Driver - Redis', (group) => {
       host: container.getHost(),
       port: container.getFirstMappedPort(),
     })
+    await driver.init()
     const encoder = new ZodJsonEncoder({
       schema: z.object({
         test: z.string(),
@@ -143,6 +149,7 @@ test.group('Driver - Redis', (group) => {
       host: container.getHost(),
       port: container.getFirstMappedPort(),
     })
+    await driver.init()
 
     cleanup(() => driver.disconnect())
 

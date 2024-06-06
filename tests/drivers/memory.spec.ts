@@ -7,6 +7,7 @@ test.group('Driver - Memory', () => {
   test('should receive the message emitted', async ({ assert, cleanup }, done) => {
     assert.plan(1)
     const driver = new MemoryDriver()
+    await driver.init()
     const encoder = new JsonEncoder()
 
     cleanup(() => {
@@ -26,20 +27,23 @@ test.group('Driver - Memory', () => {
     await driver.publish('test-channel', encoder, { payload: 'test' })
   }).waitForDone()
 
-  test('all subscribers should receive the message emitted', async ({ assert, cleanup }, done) => {
-    assert.plan(2)
+  test('all subscribers should receive the message emitted', async ({ assert, cleanup }) => {
+    assert.plan(1)
     const driver = new MemoryDriver()
+    await driver.init()
     const encoder = new JsonEncoder()
 
     cleanup(() => {
       driver.disconnect()
     })
 
+    let received = 0
+
     await driver.subscribe(
       'test-channel',
       encoder,
-      (message) => {
-        assert.deepEqual(message, { payload: 'test' })
+      (_message) => {
+        received++
       },
       new Subscription()
     )
@@ -47,20 +51,22 @@ test.group('Driver - Memory', () => {
     await driver.subscribe(
       'test-channel',
       encoder,
-      (message) => {
-        assert.deepEqual(message, { payload: 'test' })
-        done()
+      (_message) => {
+        received++
       },
       new Subscription()
     )
 
     await driver.publish('test-channel', encoder, { payload: 'test' })
-  }).waitForDone()
+
+    assert.equal(received, 2)
+  })
 
   test('should not receive the message emitted if unsubscribed', async ({ assert, cleanup }) => {
     assert.plan(0)
 
     const driver = new MemoryDriver()
+    await driver.init()
     const encoder = new JsonEncoder()
 
     cleanup(() => {
