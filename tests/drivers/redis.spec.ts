@@ -8,11 +8,11 @@ import { ZodJsonEncoder } from '../../src/encoders/zod_json_encoder.js'
 import { z } from 'zod'
 import { RedisContainer, StartedRedisContainer } from '@testcontainers/redis'
 
-test.group('Driver - Redis', (group) => {
+test.group('Drivers - Redis', (group) => {
   let container: StartedRedisContainer
 
   group.setup(async () => {
-    container = await new RedisContainer('redis').start()
+    container = await new RedisContainer().start()
 
     return async () => {
       await container.stop()

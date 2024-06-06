@@ -3,7 +3,7 @@ import { MemoryDriver } from '../../src/drivers/memory.js'
 import { JsonEncoder } from '../../src/encoders/json_encoder.js'
 import { Subscription } from '../../src/channel.js'
 
-test.group('Driver - Memory', () => {
+test.group('Drivers - Memory', () => {
   test('should receive the message emitted', async ({ assert, cleanup }, done) => {
     assert.plan(1)
     const driver = new MemoryDriver()

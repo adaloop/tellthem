@@ -19,7 +19,7 @@ export function mqtt(config: MqttDriverConfig): DriverFactory {
 }
 
 export class MqttDriver implements Driver {
-  #client: MqttClient
+  readonly #client: MqttClient
 
   constructor(config: MqttDriverConfig) {
     config.protocol = config.protocol || 'mqtt'
