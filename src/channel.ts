@@ -5,6 +5,7 @@ import { ChannelConfig } from './types/channel.js'
 import { Encoder } from './types/encoder.js'
 import { Bus } from './bus.js'
 import { E_FAILED_CREATE_BUS } from './errors.js'
+import { createId } from '@paralleldrive/cuid2'
 
 export class Channel<KnownBuses extends Record<string, BusConfig>, Payload extends Serializable> {
   readonly #manager: TellThem<KnownBuses>
@@ -84,7 +85,12 @@ class ChannelAction<KnownBuses extends Record<string, BusConfig>, Payload extend
 }
 
 export class Subscription {
+  id: string
   onFailHandler?: OnFailHandler
+
+  constructor() {
+    this.id = createId()
+  }
 
   onFail(handler: OnFailHandler) {
     this.onFailHandler = handler

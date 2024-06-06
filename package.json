@@ -30,6 +30,7 @@
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.5.22",
     "@testcontainers/hivemq": "^10.9.0",
+    "@testcontainers/kafka": "^10.9.0",
     "@testcontainers/redis": "^10.9.0",
     "@types/amqplib": "^0.10.5",
     "@types/node": "^20.12.13",
@@ -39,6 +40,7 @@
     "del-cli": "^5.1.0",
     "eslint": "^9.3.0",
     "ioredis": "^5.4.1",
+    "kafkajs": "^2.2.4",
     "mqtt": "^5.7.0",
     "prettier": "^3.2.5",
     "release-it": "^17.3.0",
@@ -48,11 +50,13 @@
     "zod": "^3.23.8"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
     "@poppinss/utils": "^6.7.3"
   },
   "peerDependencies": {
     "amqplib": ">=0.10.0",
     "ioredis": ">=5.0.0",
+    "kafkajs": ">=2.0.0",
     "mqtt": ">=5.0.0",
     "zod": ">=3.0.0"
   },
@@ -64,6 +68,9 @@
       "optional": true
     },
     "mqtt": {
+      "optional": true
+    },
+    "kafkajs": {
       "optional": true
     },
     "zod": {
