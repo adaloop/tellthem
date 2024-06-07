@@ -19,7 +19,9 @@
     "skipLibCheck": true,
     "declaration": true,
     "removeComments": false,
-    "types": ["@types/node"]
+    "types": ["@types/node"],
+    "outDir": "./build",
+    "rootDir": "./"
   },
   "ts-node": {
     "swc": true

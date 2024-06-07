@@ -14,4 +14,10 @@ yarn-error.log
 # Static export
 dist
 
+# Frontend assets compiled code
+docs/public/hot
+docs/public/build
+docs/public/assets
+docs/node_modules
+
 .TODO.MD
