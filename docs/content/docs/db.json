@@ -4,5 +4,89 @@
     "title": "Introduction",
     "contentPath": "./introduction.md",
     "category": "Guides"
+  },
+  {
+    "permalink": "quick-setup",
+    "title": "Quick Setup",
+    "contentPath": "./quick_setup.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "drivers",
+    "title": "Drivers",
+    "contentPath": "./drivers.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "encoders",
+    "title": "Encoders",
+    "contentPath": "./encoders.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "channels",
+    "title": "Channels",
+    "contentPath": "./channels.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "type-safety",
+    "title": "Type Safety",
+    "contentPath": "./type_safety.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "retry-queue",
+    "title": "Retry Queue",
+    "contentPath": "./retry_queue.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "amqp",
+    "title": "AMQP",
+    "contentPath": "./drivers/amqp.md",
+    "category": "Drivers"
+  },
+  {
+    "permalink": "memory",
+    "title": "Memory",
+    "contentPath": "./drivers/memory.md",
+    "category": "Drivers"
+  },
+  {
+    "permalink": "mqtt",
+    "title": "MQTT",
+    "contentPath": "./drivers/mqtt.md",
+    "category": "Drivers"
+  },
+  {
+    "permalink": "redis",
+    "title": "Redis",
+    "contentPath": "./drivers/redis.md",
+    "category": "Drivers"
+  },
+  {
+    "permalink": "json",
+    "title": "Json",
+    "contentPath": "./encoders/json.md",
+    "category": "Encoders"
+  },
+  {
+    "permalink": "zod-json",
+    "title": "Json (Zod)",
+    "contentPath": "./encoders/zod_json.md",
+    "category": "Encoders"
+  },
+  {
+    "permalink": "custom-driver",
+    "title": "Create a custom driver",
+    "contentPath": "./extend/custom_driver.md",
+    "category": "Extend"
+  },
+  {
+    "permalink": "custom-encoder",
+    "title": "Create a custom encoder",
+    "contentPath": "./extend/custom_encoder.md",
+    "category": "Extend"
   }
 ]
