@@ -50,6 +50,7 @@
     "zod": "^3.23.8"
   },
   "dependencies": {
+    "@lukeed/ms": "^2.0.2",
     "@paralleldrive/cuid2": "^2.2.2",
     "@poppinss/utils": "^6.7.3"
   },

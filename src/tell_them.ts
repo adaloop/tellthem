@@ -68,9 +68,11 @@ export class TellThem<KnownBuses extends Record<string, BusConfig>> {
       return cachedBus
     }
 
-    const driver = this.#buses[busName].driver()
+    const busConfig = this.#buses[busName]
+
+    const driver = busConfig.driver()
     driver.init().then(() => debug('init bus %s', busName))
-    const bus = new Bus(driver)
+    const bus = new Bus(driver, { retryQueue: busConfig.retryQueue })
     this.#busesCache[busName] = bus
 
     return bus

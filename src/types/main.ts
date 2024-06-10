@@ -16,3 +16,5 @@ export type Serializable =
   | null
   | Serializable[]
   | { [key: string]: Serializable }
+
+export type Duration = number | string
