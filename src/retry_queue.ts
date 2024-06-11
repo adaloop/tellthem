@@ -8,7 +8,7 @@ export class RetryQueue {
   #queue = new Set<{ channel: string; encoder: Encoder<any>; message: ChannelMessage<any> }>()
 
   constructor(options: RetryQueueOptions = {}) {
-    const { enabled = true, maxSize = null } = options
+    const { enabled = false, maxSize = null } = options
 
     this.#options = {
       enabled,

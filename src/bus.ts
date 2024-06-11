@@ -18,7 +18,9 @@ export class Bus {
     this.#driver = driver
     this.#errorRetryQueue = new RetryQueue(options?.retryQueue)
 
-    if (options.retryQueue?.retryInterval) {
+    if (options.retryQueue?.enabled) {
+      options.retryQueue.retryInterval = options.retryQueue.retryInterval || '5s'
+
       const intervalValue =
         typeof options?.retryQueue?.retryInterval === 'number'
           ? options?.retryQueue?.retryInterval
