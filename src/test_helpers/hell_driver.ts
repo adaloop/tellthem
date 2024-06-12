@@ -70,7 +70,6 @@ export class HellDriver implements Driver {
     }
 
     if (Math.random() < this.#failProbability) {
-      console.log('HellDriver: Random failure')
       throw new Error('HellDriver: Random failure')
     }
   }

@@ -11,30 +11,31 @@ import { parse } from '@lukeed/ms'
 export class Bus {
   readonly #driver: Driver
 
-  readonly #errorRetryQueue: RetryQueue
-  readonly #retryQueueInterval: NodeJS.Timeout | undefined
+  readonly #options: BusOptions
+
+  readonly errorRetryQueue: RetryQueue
+  readonly retryQueueInterval: NodeJS.Timeout | undefined
 
   constructor(driver: Driver, options: BusOptions) {
     this.#driver = driver
-    this.#errorRetryQueue = new RetryQueue(options?.retryQueue)
+    this.#options = options
+    this.errorRetryQueue = new RetryQueue(options?.retryQueue)
 
-    if (options.retryQueue?.enabled) {
-      options.retryQueue.retryInterval = options.retryQueue.retryInterval || '5s'
-
+    if (options.retryQueue?.enabled && options.retryQueue.retryInterval) {
       const intervalValue =
-        typeof options?.retryQueue?.retryInterval === 'number'
-          ? options?.retryQueue?.retryInterval
-          : parse(options?.retryQueue?.retryInterval)
+        typeof options?.retryQueue.retryInterval === 'number'
+          ? options?.retryQueue.retryInterval
+          : parse(options?.retryQueue.retryInterval)
 
-      this.#retryQueueInterval = setInterval(() => {
+      this.retryQueueInterval = setInterval(() => {
         void this.processErrorRetryQueue()
       }, intervalValue)
     }
   }
 
   processErrorRetryQueue() {
-    return this.#errorRetryQueue.process(async (channel, encoder, message) => {
-      return await this.publish(channel, encoder, message.payload)
+    return this.errorRetryQueue.process(async (channel, encoder, message) => {
+      return await this.publish(channel, encoder, message)
     })
   }
 
@@ -44,7 +45,10 @@ export class Bus {
 
       return true
     } catch (error) {
-      this.#errorRetryQueue.enqueue(channel, encoder, message)
+      if (this.#options.retryQueue?.enabled) {
+        this.errorRetryQueue.enqueue(channel, encoder, message)
+      }
+
       return false
     }
   }
@@ -63,8 +67,8 @@ export class Bus {
   }
 
   disconnect() {
-    if (this.#retryQueueInterval) {
-      clearInterval(this.#retryQueueInterval)
+    if (this.retryQueueInterval) {
+      clearInterval(this.retryQueueInterval)
     }
 
     return this.#driver.disconnect()

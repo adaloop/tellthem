@@ -4,16 +4,24 @@ import { MemoryDriver } from '../../src/drivers/memory.js'
 import { jsonEncoder } from '../../src/encoders/json_encoder.js'
 
 test.group('Test Helpers - HellDriver', () => {
-  test('should always fail', ({ assert }) => {
+  test('should always fail', ({ assert, cleanup }) => {
     const driver = new HellDriver(new MemoryDriver())
+
+    cleanup(async () => {
+      await driver.disconnect()
+    })
 
     driver.alwaysFail()
 
     assert.throws(() => driver.publish('test', jsonEncoder(), { payload: 'test' }))
   })
 
-  test('should always succeed', ({ assert }) => {
+  test('should always succeed', ({ assert, cleanup }) => {
     const driver = new HellDriver(new MemoryDriver())
+
+    cleanup(async () => {
+      await driver.disconnect()
+    })
 
     driver.alwaysSuccess()
 
@@ -22,8 +30,12 @@ test.group('Test Helpers - HellDriver', () => {
     )
   })
 
-  test('should fail randomly', async ({ assert }) => {
+  test('should fail randomly', async ({ assert, cleanup }) => {
     const driver = new HellDriver(new MemoryDriver())
+
+    cleanup(async () => {
+      await driver.disconnect()
+    })
 
     driver.randomFail()
 
