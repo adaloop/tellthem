@@ -21,3 +21,5 @@ docs/public/assets
 docs/node_modules
 
 .TODO.MD
+
+**/.DS_Store
