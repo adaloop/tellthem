@@ -2,14 +2,14 @@ import { Driver } from './types/driver.js'
 import { ChannelMessageSubscribeHandler } from './types/main.js'
 import { Encoder } from './types/encoder.js'
 import { ChannelMessage } from './types/channel.js'
-import { Subscription } from './channel.js'
 import { BusOptions } from './types/bus.js'
 import { RetryQueue } from './retry_queue.js'
 import { clearInterval } from 'node:timers'
 import { parse } from '@lukeed/ms'
+import { Subscription } from './subscription.js'
 
 export class Bus {
-  readonly #driver: Driver
+  readonly driver: Driver
 
   readonly #options: BusOptions
 
@@ -17,7 +17,7 @@ export class Bus {
   readonly retryQueueInterval: NodeJS.Timeout | undefined
 
   constructor(driver: Driver, options: BusOptions) {
-    this.#driver = driver
+    this.driver = driver
     this.#options = options
     this.errorRetryQueue = new RetryQueue(options?.retryQueue)
 
@@ -41,7 +41,7 @@ export class Bus {
 
   async publish(channel: string, encoder: Encoder<any>, message: ChannelMessage<any>) {
     try {
-      await this.#driver.publish(channel, encoder, message)
+      await this.driver.publish(channel, encoder, message)
 
       return true
     } catch (error) {
@@ -59,11 +59,11 @@ export class Bus {
     handler: ChannelMessageSubscribeHandler<any>,
     subscription: Subscription
   ) {
-    return this.#driver.subscribe(channel, encoder, handler, subscription)
+    return this.driver.subscribe(channel, encoder, handler, subscription)
   }
 
-  unsubscribe(channel: string) {
-    return this.#driver.unsubscribe(channel)
+  unsubscribe(target: string | Subscription) {
+    return this.driver.unsubscribe(target)
   }
 
   disconnect() {
@@ -71,10 +71,10 @@ export class Bus {
       clearInterval(this.retryQueueInterval)
     }
 
-    return this.#driver.disconnect()
+    return this.driver.disconnect()
   }
 
   onReconnect(callback: () => void) {
-    return this.#driver.onReconnect(callback)
+    return this.driver.onReconnect(callback)
   }
 }

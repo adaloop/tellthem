@@ -2,7 +2,7 @@ import { Driver, DriverFactory } from '../types/driver.js'
 import { ChannelMessageSubscribeHandler, Serializable } from '../types/main.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
-import { Subscription } from '../channel.js'
+import { Subscription } from '../subscription.js'
 
 export function memory(): DriverFactory {
   return () => new MemoryDriver()
@@ -12,6 +12,7 @@ export class MemoryDriver implements Driver {
   static #subscriptions: Map<
     string,
     Array<{
+      subscription: Subscription
       handler: ChannelMessageSubscribeHandler<any>
     }>
   > = new Map()
@@ -36,17 +37,31 @@ export class MemoryDriver implements Driver {
     channel: string,
     _encoder: Encoder<T>,
     handler: ChannelMessageSubscribeHandler<T>,
-    _subscription: Subscription
+    subscription: Subscription
   ) {
     const handlers = MemoryDriver.#subscriptions.get(channel) || []
 
-    handlers.push({ handler })
+    handlers.push({ handler, subscription })
 
     MemoryDriver.#subscriptions.set(channel, handlers)
   }
 
-  async unsubscribe(channel: string) {
-    MemoryDriver.#subscriptions.delete(channel)
+  async unsubscribe(target: string | Subscription) {
+    if (typeof target === 'string') {
+      MemoryDriver.#subscriptions.delete(target)
+      return
+    }
+
+    if (target.channel) {
+      const handlers = MemoryDriver.#subscriptions.get(target.channel)
+
+      if (!handlers) return
+
+      MemoryDriver.#subscriptions.set(
+        target.channel,
+        handlers.filter(({ subscription }) => subscription !== target)
+      )
+    }
   }
 
   async disconnect() {

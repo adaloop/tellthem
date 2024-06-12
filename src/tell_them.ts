@@ -3,10 +3,11 @@ import { TellThemConfig } from './types/tell_them.js'
 import { Bus } from './bus.js'
 import { ChannelConfig } from './types/channel.js'
 import { Serializable } from './types/main.js'
-import { Channel, Subscription } from './channel.js'
+import { Channel } from './channel.js'
 import { E_FAILED_CREATE_BUS } from './errors.js'
 import { Encoder } from './types/encoder.js'
 import debug from './utils/debug.js'
+import { Subscription } from './subscription.js'
 
 export class TellThem<KnownBuses extends Record<string, BusConfig>> {
   readonly defaultBusName: keyof KnownBuses | undefined

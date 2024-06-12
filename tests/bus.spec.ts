@@ -3,7 +3,7 @@ import { Bus } from '../src/bus.js'
 import { MemoryDriver } from '../src/drivers/memory.js'
 import { HellDriver } from '../src/test_helpers/hell_driver.js'
 import { jsonEncoder } from '../src/encoders/json_encoder.js'
-import { Subscription } from '../src/channel.js'
+import { Subscription } from '../src/subscription.js'
 
 test.group('Bus', () => {
   test('should process retry queue within the interval', async ({ assert, cleanup }, done) => {

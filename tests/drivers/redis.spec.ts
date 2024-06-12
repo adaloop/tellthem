@@ -2,11 +2,11 @@ import { test } from '@japa/runner'
 import { RedisDriver } from '../../src/drivers/redis.js'
 import { JsonEncoder } from '../../src/encoders/json_encoder.js'
 import { setTimeout } from 'node:timers/promises'
-import { Subscription } from '../../src/channel.js'
 import { E_FAILED_DECODE_MESSAGE } from '../../src/errors.js'
 import { ZodJsonEncoder } from '../../src/encoders/zod_json_encoder.js'
 import { z } from 'zod'
 import { RedisContainer, StartedRedisContainer } from '@testcontainers/redis'
+import { Subscription } from '../../src/subscription.js'
 
 test.group('Drivers - Redis', (group) => {
   let container: StartedRedisContainer

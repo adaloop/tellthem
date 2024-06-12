@@ -2,7 +2,7 @@ import { Driver } from '../types/driver.js'
 import { ChannelMessageSubscribeHandler, Serializable } from '../types/main.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
-import { Subscription } from '../channel.js'
+import { Subscription } from '../subscription.js'
 
 export class HellDriver implements Driver {
   readonly #innerDriver: Driver
@@ -34,7 +34,7 @@ export class HellDriver implements Driver {
     return this.#innerDriver.subscribe(channel, encoder, handler, subscription)
   }
 
-  unsubscribe(channel: string) {
+  unsubscribe(channel: string | Subscription) {
     return this.#innerDriver.unsubscribe(channel)
   }
 

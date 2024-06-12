@@ -4,8 +4,8 @@ import { Redis, RedisOptions } from 'ioredis'
 import debug from '../utils/debug.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
-import { Subscription } from '../channel.js'
 import { E_FAILED_DECODE_MESSAGE, E_SUBSCRIPTION_FAILED } from '../errors.js'
+import { Subscription } from '../subscription.js'
 
 interface RedisDriverConfig extends RedisOptions {}
 
@@ -66,8 +66,13 @@ export class RedisDriver implements Driver {
     })
   }
 
-  async unsubscribe(channel: string) {
-    this.#subscriber.unsubscribe(channel)
+  async unsubscribe(target: string | Subscription) {
+    if (typeof target === 'string') {
+      this.#subscriber.unsubscribe(target)
+      return
+    }
+
+    if (target.channel) this.#subscriber.unsubscribe(target.channel)
   }
 
   async disconnect() {

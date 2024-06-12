@@ -1,12 +1,12 @@
 import { test } from '@japa/runner'
 import { JsonEncoder } from '../../src/encoders/json_encoder.js'
-import { Subscription } from '../../src/channel.js'
 import { setTimeout } from 'node:timers/promises'
 import { ZodJsonEncoder } from '../../src/encoders/zod_json_encoder.js'
 import { z } from 'zod'
 import { E_FAILED_DECODE_MESSAGE } from '../../src/errors.js'
 import { HiveMQContainer, StartedHiveMQContainer } from '@testcontainers/hivemq'
 import { MqttDriver } from '../../src/drivers/mqtt.js'
+import { Subscription } from '../../src/subscription.js'
 
 test.group('Drivers - Mqtt', (group) => {
   let container: StartedHiveMQContainer

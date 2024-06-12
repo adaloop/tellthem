@@ -1,11 +1,11 @@
 import { BusConfig } from './types/bus.js'
-import { OnFailHandler, Serializable, SubscribeHandler } from './types/main.js'
+import { Serializable, SubscribeHandler } from './types/main.js'
 import { TellThem } from './tell_them.js'
 import { ChannelConfig } from './types/channel.js'
 import { Encoder } from './types/encoder.js'
 import { Bus } from './bus.js'
 import { E_FAILED_CREATE_BUS } from './errors.js'
-import { createId } from '@paralleldrive/cuid2'
+import { Subscription } from './subscription.js'
 
 export class Channel<KnownBuses extends Record<string, BusConfig>, Payload extends Serializable> {
   readonly #manager: TellThem<KnownBuses>
@@ -68,6 +68,8 @@ class ChannelAction<KnownBuses extends Record<string, BusConfig>, Payload extend
 
   async subscribe(handler: SubscribeHandler<Payload>): Promise<Subscription> {
     const subscription = new Subscription()
+    subscription.setChannel(this.#channel.name)
+    subscription.setDriver(this.#bus.driver)
 
     await this.#bus.subscribe(
       this.#channel.name,
@@ -81,18 +83,5 @@ class ChannelAction<KnownBuses extends Record<string, BusConfig>, Payload extend
 
   unsubscribe() {
     return this.#bus.unsubscribe(this.#channel.name)
-  }
-}
-
-export class Subscription {
-  id: string
-  onFailHandler?: OnFailHandler
-
-  constructor() {
-    this.id = createId()
-  }
-
-  onFail(handler: OnFailHandler) {
-    this.onFailHandler = handler
   }
 }

@@ -2,10 +2,10 @@ import { Driver, DriverFactory } from '../types/driver.js'
 import { ChannelMessageSubscribeHandler, Serializable } from '../types/main.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
-import { Subscription } from '../channel.js'
 import { connect, IClientOptions, MqttClient } from 'mqtt'
 import debug from '../utils/debug.js'
 import { E_FAILED_DECODE_MESSAGE, E_SUBSCRIPTION_FAILED } from '../errors.js'
+import { Subscription } from '../subscription.js'
 
 interface MqttDriverConfig {
   protocol?: 'mqtt' | 'mqtts'
@@ -72,8 +72,13 @@ export class MqttDriver implements Driver {
     })
   }
 
-  async unsubscribe(channel: string) {
-    await this.#client.unsubscribeAsync(channel)
+  async unsubscribe(target: string | Subscription) {
+    if (typeof target === 'string') {
+      await this.#client.unsubscribeAsync(target)
+      return
+    }
+
+    if (target.channel) await this.#client.unsubscribeAsync(target.channel)
   }
 
   async disconnect() {

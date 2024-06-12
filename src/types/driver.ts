@@ -1,7 +1,7 @@
 import { ChannelMessageSubscribeHandler, Serializable } from './main.js'
 import { Encoder } from './encoder.js'
 import { ChannelMessage } from './channel.js'
-import { Subscription } from '../channel.js'
+import { Subscription } from '../subscription.js'
 
 export interface Driver {
   init: () => Promise<void>
@@ -16,7 +16,7 @@ export interface Driver {
     handler: ChannelMessageSubscribeHandler<T>,
     subscription: Subscription
   ) => Promise<void>
-  unsubscribe: (channel: string) => Promise<void>
+  unsubscribe: (target: string | Subscription) => Promise<void>
   disconnect: () => Promise<void>
   onReconnect: (callback: () => void) => void
 }

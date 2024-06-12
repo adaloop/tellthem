@@ -2,10 +2,10 @@ import { Driver, DriverFactory } from '../types/driver.js'
 import { ChannelMessageSubscribeHandler, Serializable } from '../types/main.js'
 import { Encoder } from '../types/encoder.js'
 import { ChannelMessage } from '../types/channel.js'
-import { Subscription } from '../channel.js'
 import amqplib from 'amqplib'
 import { E_DRIVER_NOT_INITIALIZED, E_FAILED_DECODE_MESSAGE } from '../errors.js'
 import debug from '../utils/debug.js'
+import { Subscription } from '../subscription.js'
 
 interface AmqpDriverConfig extends amqplib.Options.Connect {}
 
@@ -22,7 +22,7 @@ export class AmqpDriver implements Driver {
   #publisherChannel?: amqplib.Channel
   #subscriberChannel?: amqplib.Channel
 
-  #consumers: Map<string, Array<amqplib.Replies.Consume>> = new Map()
+  #consumers: Map<string, Array<Subscription>> = new Map()
 
   constructor(config: AmqpDriverConfig) {
     this.#config = config
@@ -77,20 +77,38 @@ export class AmqpDriver implements Driver {
       handler(decoded)
     })
 
+    subscription.setId(consumer.consumerTag)
+
     // Store channel consumers to manage unsubscribe
     const consumers = this.#consumers.get(channel) || []
-    consumers.push(consumer)
+    consumers.push(subscription)
     this.#consumers.set(channel, consumers)
   }
 
-  async unsubscribe(channel: string) {
+  async unsubscribe(target: string | Subscription) {
     const amqpChannel = await this.getSubscriberChannel()
 
-    const consumers = this.#consumers.get(channel) || []
+    if (typeof target === 'string') {
+      const consumers = this.#consumers.get(target) || []
 
-    for (const { consumerTag } of consumers) {
-      await amqpChannel.cancel(consumerTag)
+      for (const consumer of consumers) {
+        await amqpChannel.cancel(consumer.id)
+      }
+
+      this.#consumers.delete(target)
+      return
     }
+
+    if (target.channel) {
+      const consumers = this.#consumers.get(target.channel) || []
+
+      this.#consumers.set(
+        target.channel,
+        consumers.filter((consumer) => consumer.id !== target.id)
+      )
+    }
+
+    await amqpChannel.cancel(target.id)
   }
 
   async disconnect() {
