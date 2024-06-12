@@ -47,6 +47,7 @@
     "testcontainers": "^10.9.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
+    "yup": "^1.4.0",
     "zod": "^3.23.8"
   },
   "dependencies": {
@@ -55,11 +56,12 @@
     "@poppinss/utils": "^6.7.3"
   },
   "peerDependencies": {
+    "@vinejs/vine": ">=2.0.0",
     "amqplib": ">=0.10.0",
     "ioredis": ">=5.0.0",
     "kafkajs": ">=2.0.0",
     "mqtt": ">=5.0.0",
-    "@vinejs/vine": ">=2.0.0",
+    "yup": ">=1.4.0",
     "zod": ">=3.0.0"
   },
   "peerDependenciesMeta": {
@@ -76,6 +78,9 @@
       "optional": true
     },
     "@vinejs/vine": {
+      "optional": true
+    },
+    "yup": {
       "optional": true
     },
     "zod": {
