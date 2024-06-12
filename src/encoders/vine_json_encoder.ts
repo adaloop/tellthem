@@ -23,9 +23,8 @@ export class VineJsonEncoder<T extends Serializable> implements Encoder<T> {
   }
 
   async decode(message: string): Promise<ChannelMessage<T> | null> {
-    const parsedMessage = JSON.parse(message)
-
     try {
+      const parsedMessage = JSON.parse(message)
       const result = await vine.validate({ schema: this.#schema, data: parsedMessage.payload })
 
       return {

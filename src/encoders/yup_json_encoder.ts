@@ -23,9 +23,8 @@ export class YupJsonEncoder<T extends Serializable> implements Encoder<T> {
   }
 
   async decode(message: string): Promise<ChannelMessage<T> | null> {
-    const parsedMessage = JSON.parse(message)
-
     try {
+      const parsedMessage = JSON.parse(message)
       const result = await this.#schema.validate(parsedMessage.payload)
 
       return {
