@@ -45,7 +45,7 @@ export class TellThem<KnownBuses extends Record<string, BusConfig>> {
     channel: string,
     encoder: Encoder<Payload>,
     message: Payload
-  ): Promise<void> {
+  ): Promise<boolean> {
     return this.use().publish(channel, encoder, message)
   }
 
@@ -90,7 +90,7 @@ class TellThemAction {
     channel: string,
     encoder: Encoder<Payload>,
     message: Payload
-  ): Promise<void> {
+  ): Promise<boolean> {
     return this.#bus.publish(channel, encoder, { payload: message })
   }
 

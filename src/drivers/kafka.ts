@@ -48,7 +48,7 @@ export class KafkaDriver implements Driver {
         debug('received message for channel "%s"', topic)
 
         for (const { encoder, handler, subscription } of subscriptions) {
-          const decoded = encoder.decode(message.value.toString())
+          const decoded = await encoder.decode(message.value.toString())
 
           if (!decoded) {
             if (subscription.onFailHandler) {

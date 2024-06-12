@@ -64,7 +64,7 @@ export class AmqpDriver implements Driver {
 
       debug('received message for channel "%s"', channel)
 
-      const decoded = encoder.decode(message.content.toString())
+      const decoded = await encoder.decode(message.content.toString())
 
       if (!decoded) {
         if (subscription.onFailHandler) {

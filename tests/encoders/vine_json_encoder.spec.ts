@@ -1,13 +1,13 @@
 import { test } from '@japa/runner'
-import { ZodJsonEncoder } from '../../src/encoders/zod_json_encoder.js'
-import { z } from 'zod'
 import { ChannelMessage } from '../../src/types/channel.js'
+import { VineJsonEncoder } from '../../src/encoders/vine_json_encoder.js'
+import vine from '@vinejs/vine'
 
-test.group('Encoders - Zod Json', () => {
+test.group('Encoders - Vine Json', () => {
   test('should encode and decode', async ({ assert }) => {
-    const encoder = new ZodJsonEncoder({
-      schema: z.object({
-        test: z.string(),
+    const encoder = new VineJsonEncoder({
+      schema: vine.object({
+        test: vine.string(),
       }),
     })
 
@@ -25,9 +25,9 @@ test.group('Encoders - Zod Json', () => {
   })
 
   test('should not decode', async ({ assert }) => {
-    const encoder = new ZodJsonEncoder({
-      schema: z.object({
-        test: z.string(),
+    const encoder = new VineJsonEncoder({
+      schema: vine.object({
+        test: vine.string(),
       }),
     })
 
@@ -37,9 +37,9 @@ test.group('Encoders - Zod Json', () => {
   })
 
   test('should be typed', async ({ assert, expectTypeOf }) => {
-    const encoder = new ZodJsonEncoder({
-      schema: z.object({
-        test: z.string(),
+    const encoder = new VineJsonEncoder({
+      schema: vine.object({
+        test: vine.string(),
       }),
     })
 

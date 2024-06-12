@@ -22,16 +22,18 @@ export class ZodJsonEncoder<T extends Serializable> implements Encoder<T> {
     return JSON.stringify(message)
   }
 
-  decode(message: string): ChannelMessage<T> | null {
-    const parsedMessage = JSON.parse(message)
-    const result = this.#schema.safeParse(parsedMessage.payload)
+  decode(message: string): Promise<ChannelMessage<T> | null> {
+    return new Promise((resolve) => {
+      const parsedMessage = JSON.parse(message)
+      const result = this.#schema.safeParse(parsedMessage.payload)
 
-    if (!result.success) {
-      return null
-    }
+      if (!result.success) {
+        resolve(null)
+      }
 
-    return {
-      payload: result.data,
-    }
+      resolve({
+        payload: result.data,
+      })
+    })
   }
 }

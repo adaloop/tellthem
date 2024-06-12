@@ -45,14 +45,14 @@ export class RedisDriver implements Driver {
       }
     })
 
-    this.#subscriber.on('message', (receivedChannel: string, message: string) => {
+    this.#subscriber.on('message', async (receivedChannel: string, message: string) => {
       receivedChannel = receivedChannel.toString()
 
       if (channel !== receivedChannel) return
 
       debug('received message for channel "%s"', channel)
 
-      const decoded = encoder.decode(message)
+      const decoded = await encoder.decode(message)
 
       if (!decoded) {
         if (subscription.onFailHandler) {

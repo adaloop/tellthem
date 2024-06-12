@@ -11,11 +11,13 @@ export class JsonEncoder<T extends Serializable> implements Encoder<T> {
     return JSON.stringify(message)
   }
 
-  decode(message: string): ChannelMessage<T> | null {
-    try {
-      return JSON.parse(message)
-    } catch (err) {
-      return null
-    }
+  decode(message: string): Promise<ChannelMessage<T> | null> {
+    return new Promise((resolve) => {
+      try {
+        resolve(JSON.parse(message))
+      } catch (err) {
+        resolve(null)
+      }
+    })
   }
 }

@@ -53,12 +53,12 @@ export class MqttDriver implements Driver {
       }
     })
 
-    this.#client.on('message', (receivedChannel: string, message: Buffer | string) => {
+    this.#client.on('message', async (receivedChannel: string, message: Buffer | string) => {
       if (receivedChannel !== channel) return
 
       debug('received message for channel "%s"', channel)
 
-      const decoded = encoder.decode(message.toString())
+      const decoded = await encoder.decode(message.toString())
 
       if (!decoded) {
         if (subscription.onFailHandler) {
