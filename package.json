@@ -12,8 +12,14 @@
   ],
   "exports": {
     ".": "./build/index.js",
-    "./drivers": "./build/drivers.js",
-    "./encoders": "./build/encoders.js"
+    "./drivers/amqp": "./build/src/drivers/amqp.js",
+    "./drivers/memory": "./build/src/drivers/memory.js",
+    "./drivers/mqtt": "./build/src/drivers/mqtt.js",
+    "./drivers/redis": "./build/src/drivers/redis.js",
+    "./encoders/json": "./build/src/encoders/json_encoder.js",
+    "./encoders/vine": "./build/src/encoders/vine_json_encoder.js",
+    "./encoders/yup": "./build/src/encoders/yup_json_encoder.js",
+    "./encoders/zod": "./build/src/encoders/zod_json_encoder.js"
   },
   "scripts": {
     "build": "npm run clean && tsc",
