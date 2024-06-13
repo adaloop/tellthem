@@ -78,6 +78,18 @@
     "category": "Encoders"
   },
   {
+    "permalink": "vine-json",
+    "title": "Json (VineJS)",
+    "contentPath": "./encoders/vine_json.md",
+    "category": "Encoders"
+  },
+  {
+    "permalink": "yup-json",
+    "title": "Json (Yup)",
+    "contentPath": "./encoders/yup_json.md",
+    "category": "Encoders"
+  },
+  {
     "permalink": "custom-driver",
     "title": "Create a custom driver",
     "contentPath": "./extend/custom_driver.md",
