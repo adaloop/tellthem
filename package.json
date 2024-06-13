@@ -1,7 +1,7 @@
 {
   "name": "tellthem",
   "description": "Simple driver based bus implementation",
-  "version": "0.0.3-beta",
+  "version": "0.0.4-beta",
   "engines": {
     "node": ">=20.11.1"
   },
