@@ -11,7 +11,9 @@
     "build"
   ],
   "exports": {
-    ".": "./build/index.js"
+    ".": "./build/index.js",
+    "./drivers": "./build/drivers.js",
+    "./encoders": "./build/encoders.js"
   },
   "scripts": {
     "build": "npm run clean && tsc",
