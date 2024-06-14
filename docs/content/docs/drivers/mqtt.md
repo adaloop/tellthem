@@ -4,7 +4,9 @@ Type: `PubSub`
 
 Sends and receives messages using the mqtt protocol.
 
-> **Note:** This driver is doesn't support unsubscribe on a specific subscription. It will unsubscribe all subscriptions of the channel.
+:::note
+This driver is doesn't support unsubscribe on a specific subscription. It will unsubscribe all subscriptions of the channel.
+:::
 
 ## Installation
 

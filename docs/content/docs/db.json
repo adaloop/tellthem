@@ -36,6 +36,12 @@
     "category": "Guides"
   },
   {
+    "permalink": "subscriptions",
+    "title": "Subscriptions",
+    "contentPath": "./subscriptions.md",
+    "category": "Guides"
+  },
+  {
     "permalink": "retry-queue",
     "title": "Retry Queue",
     "contentPath": "./retry_queue.md",
