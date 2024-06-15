@@ -4,9 +4,22 @@ Encodes and decodes messages using simple JSON validated with [`VineJS`](https:/
 
 ## Installation
 
-```bash
+:::codegroup
+```sh
+// title: npm
 npm install @vinejs/vine
 ```
+
+```sh
+// title: pnpm
+pnpm add @vinejs/vine
+```
+
+```sh
+// title: yarn
+yarn add @vinejs/vine
+```
+:::
 
 ## Usage
 

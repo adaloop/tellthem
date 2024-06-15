@@ -6,9 +6,22 @@ Sends and receives messages using the AMQP protocol.
 
 ## Installation
 
-```bash
+:::codegroup
+```sh
+// title: npm
 npm install amqplib
 ```
+
+```sh
+// title: pnpm
+pnpm add amqplib
+```
+
+```sh
+// title: yarn
+yarn add amqplib
+```
+:::
 
 ## Usage
 

@@ -10,9 +10,22 @@ This driver is doesn't support unsubscribe on a specific subscription. It will u
 
 ## Installation
 
-```bash
+:::codegroup
+```sh
+// title: npm
 npm install ioredis
 ```
+
+```sh
+// title: pnpm
+pnpm add ioredis
+```
+
+```sh
+// title: yarn
+yarn add ioredis
+```
+:::
 
 ## Usage
 

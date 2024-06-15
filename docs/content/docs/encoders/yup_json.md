@@ -4,9 +4,22 @@ Encodes and decodes messages using simple JSON validated with [`Yup`](https://gi
 
 ## Installation
 
-```bash
+:::codegroup
+```sh
+// title: npm
 npm install yup
 ```
+
+```sh
+// title: pnpm
+pnpm add yup
+```
+
+```sh
+// title: yarn
+yarn add yup
+```
+:::
 
 ## Usage
 

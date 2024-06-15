@@ -4,9 +4,22 @@ Encodes and decodes messages using simple JSON validated with [`Zod`](https://gi
 
 ## Installation
 
-```bash
+:::codegroup
+```sh
+// title: npm
 npm install zod
 ```
+
+```sh
+// title: pnpm
+pnpm add zod
+```
+
+```sh
+// title: yarn
+yarn add zod
+```
+:::
 
 ## Usage
 
