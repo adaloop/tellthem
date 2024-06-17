@@ -1,20 +1,21 @@
 <p align="center">
   <br/>
-    TellThem is a driver based communication library (PubSub or Message Queue).
+    TellThem is an asynchronous communication library for Node.js.
   <br/>
 </p>
 
 ## Features
-- 🗄️ Support PubSub and Message Queue
-- 🚀 Simple and easy to use
-- 🚀 Many drivers (Redis, In-memory, Kafka, AMQP, MQTT)
-- 📦 Retry queue
-- 📦 Typesafe channels
+- 🗄️ Support PubSub and Point to Point
+- 💡 Simple and easy to use
+- 🚀 Many drivers (Redis, In-memory, AMQP, MQTT)
+- 🔁 Retry queue
+- ✅ Typesafe channels
 - 📖 Well documented
 - 🧩 Easily extendable with your own encoders and drivers
 
 ## Why TellThem ?
-I was searching for a simple and easy to use driver based library to implement typesafe pubsub and message queue channels. Unfortunately, I didn't find any that fit my needs expect [`@boringnode/bus`](https://github.com/boringnode/bus). That is a great library but it doest not implement typesafety in their channels system. So I decided to create my own library.
+
+I wanted a simple driver based and typesafe library to communicate with my services. Since I'm using [`AdonisJS`](https://adonisjs.com/) for most of my projects, I initially created a library for this framework called [`adonis6-amqp`](https://www.npmjs.com/package/adonis6-amqp/v/latest). But when I wanted to use it in a standalone project, I realized that I needed a more generic library. I found out that there is a perfect library for this purpose called [`@boringnode/bus`](https://www.npmjs.com/package/@boringnode/bus), but it's not typesafe , so I decided to create my own that combine the best of both worlds.
 
 ## Installation
 ```bash
@@ -26,7 +27,8 @@ npm install tellthem
 The library use a manager you need to use to register buses.
 ```typescript
 import { TellThem } from 'tellthem';
-import { memory } from 'tellthem/drivers';
+import { memory } from 'tellthem/drivers/memory';
+import { redis } from 'tellthem/drivers/redis';
 
 const tellThem = new TellThem({
   default: 'memory',
@@ -47,7 +49,7 @@ const tellThem = new TellThem({
 Once you created your manager, you will use it to create a channel.
 
 ```typescript
-import { jsonEncoder } from 'tellthem/encoders';
+import { jsonEncoder } from 'tellthem/encoders/json';
 
 const channel = tellThem.channel({
   name: 'my-channel',
@@ -94,4 +96,4 @@ channel.publish({
 
 ## Credits
 
-[`Romain Lanz`](https://github.com/RomainLanz) and [`Julien Ripouteau`](https://github.com/Julien-R44) did an amazing job on creating [`@boringnode/bus`](https://github.com/boringnode/bus). I used some of their code to create this library. 
+This library is inspired by [`@boringnode/bus`](https://www.npmjs.com/package/@boringnode/bus).

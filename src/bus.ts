@@ -21,7 +21,9 @@ export class Bus {
     this.#options = options
     this.errorRetryQueue = new RetryQueue(options?.retryQueue)
 
-    if (options.retryQueue?.enabled && options.retryQueue.retryInterval) {
+    if (options.retryQueue?.enabled) {
+      options.retryQueue.retryInterval = options.retryQueue.retryInterval || 1000
+
       const intervalValue =
         typeof options?.retryQueue.retryInterval === 'number'
           ? options?.retryQueue.retryInterval
