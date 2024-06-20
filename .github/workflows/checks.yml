@@ -1,0 +1,16 @@
+name: checks
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    uses: tbrul/.github/.github/workflows/node/test.yml@main
+    with:
+      disable-windows: true
+
+  lint:
+    uses: tbrul/.github/.github/workflows/node/lint.yml@main
+
+  typecheck:
+    uses: tbrul/.github/.github/workflows/node/typecheck.yml@main
