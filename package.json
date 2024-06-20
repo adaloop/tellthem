@@ -1,13 +1,15 @@
 {
   "name": "@tbrul/tellthem",
   "description": "Simple driver based asynchronous communication library",
-  "version": "0.0.4-beta",
+  "version": "0.0.4",
   "engines": {
     "node": ">=20.11.1"
   },
   "main": "main/index.js",
   "type": "module",
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "exports": {
     ".": "./build/index.js",
     "./drivers/amqp": "./build/src/drivers/amqp.js",
@@ -98,7 +100,15 @@
   },
   "author": "tom-brulin",
   "license": "MIT",
-  "keywords": ["tellthem", "tbrul", "bus", "event", "pubsub", "message", "queue"],
+  "keywords": [
+    "tellthem",
+    "tbrul",
+    "bus",
+    "event",
+    "pubsub",
+    "message",
+    "queue"
+  ],
   "eslintConfig": {
     "extends": "@tbrul/eslint-config/package"
   },
