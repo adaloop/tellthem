@@ -7,9 +7,7 @@
   },
   "main": "main/index.js",
   "type": "module",
-  "files": [
-    "build"
-  ],
+  "files": ["build"],
   "exports": {
     ".": "./build/index.js",
     "./drivers/amqp": "./build/src/drivers/amqp.js",
@@ -25,7 +23,7 @@
     "build": "npm run clean && tsc",
     "clean": "del-cli build",
     "format": "prettier --write .",
-    "lint": "eslint . --ext=.ts",
+    "lint": "eslint --ext=.ts .",
     "prepublishOnly": "npm run build",
     "release": "npx release-it",
     "test": "c8 node --loader ts-node/esm --enable-source-maps bin/test.ts",
@@ -37,6 +35,9 @@
     "@japa/expect-type": "^2.0.2",
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.5.22",
+    "@tbrul/eslint-config": "^1.0.2",
+    "@tbrul/prettier-config": "^1.0.2",
+    "@tbrul/tsconfig": "^1.0.2",
     "@testcontainers/hivemq": "^10.9.0",
     "@testcontainers/kafka": "^10.9.0",
     "@testcontainers/redis": "^10.9.0",
@@ -98,12 +99,18 @@
   "author": "tom-brulin",
   "license": "MIT",
   "keywords": [
+    "tellthem",
+    "tbrul",
     "bus",
     "event",
     "pubsub",
     "message",
     "queue"
   ],
+  "eslintConfig": {
+    "extends": "@tbrul/eslint-config/package"
+  },
+  "prettier": "@tbrul/prettier-config",
   "publishConfig": {
     "access": "public",
     "tag": "latest"

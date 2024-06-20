@@ -39,11 +39,11 @@ test.group('Bus', () => {
     driver.alwaysSuccess()
   }).waitForDone()
 
-  test('should not create interval if not interval provided', ({ assert, cleanup }) => {
+  test('should not create interval if retryQueue disabled', ({ assert, cleanup }) => {
     const driver = new HellDriver(new MemoryDriver())
     const bus = new Bus(driver, {
       retryQueue: {
-        enabled: true,
+        enabled: false,
       },
     })
 
