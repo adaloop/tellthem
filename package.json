@@ -1,6 +1,6 @@
 {
-  "name": "tellthem",
-  "description": "Simple driver based bus implementation",
+  "name": "@tbrul/tellthem",
+  "description": "Simple driver based asynchronous communication library",
   "version": "0.0.4-beta",
   "engines": {
     "node": ">=20.11.1"
@@ -98,15 +98,7 @@
   },
   "author": "tom-brulin",
   "license": "MIT",
-  "keywords": [
-    "tellthem",
-    "tbrul",
-    "bus",
-    "event",
-    "pubsub",
-    "message",
-    "queue"
-  ],
+  "keywords": ["tellthem", "tbrul", "bus", "event", "pubsub", "message", "queue"],
   "eslintConfig": {
     "extends": "@tbrul/eslint-config/package"
   },
