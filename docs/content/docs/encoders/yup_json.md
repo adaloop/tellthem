@@ -25,7 +25,7 @@ yarn add yup
 
 ```ts
 import yup from 'yup'
-import { yupJsonEncoder } from 'tellthem/encoders/yup'
+import { yupJsonEncoder } from '@tbrul/tellthem/encoders/yup'
 
 const encoder = yupJsonEncoder({
   schema: yup.object({

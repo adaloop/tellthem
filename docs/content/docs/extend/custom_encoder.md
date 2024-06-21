@@ -2,7 +2,7 @@
 
 You can extend TellThem with your own encoder easily.
 
-You will need to create a new class that implements the `Encoder` interface that can be imported directly from `tellthem`.
+You will need to create a new class that implements the `Encoder` interface that can be imported directly from `@tbrul/tellthem`.
 
 ```ts
 export interface Encoder<T extends Serializable> {

@@ -2,7 +2,7 @@
 
 You can extend TellThen with your own driver easily.
 
-You will need to create a new class that implements the `Driver` interface that can be imported directly from `tellthem`.
+You will need to create a new class that implements the `Driver` interface that can be imported directly from `@tbrul/tellthem`.
 
 ```ts
 export interface Driver {

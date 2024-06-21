@@ -30,7 +30,7 @@ yarn add mqtt
 ## Usage
 
 ```ts
-import { mqtt } from 'tellthem/drivers/mqtt'
+import { mqtt } from '@tbrul/tellthem/drivers/mqtt'
 ...
 buses: {
   mqtt: {
@@ -55,5 +55,3 @@ For more detailed options, feel free to check the [`mqtt`](https://github.com/mq
 | `host`     | The hostname of the mqtt broker.              | N/A     |
 | `port`     | The port of the mqtt broker.                  | 1883    |
 | `options`  | The options of the mqtt broker.               | N/A     |
-
-

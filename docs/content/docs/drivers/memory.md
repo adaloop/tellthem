@@ -7,7 +7,7 @@ Sends and receives messages using the memory.
 ## Usage
 
 ```ts
-import { memory } from 'tellthem/drivers/memory'
+import { memory } from '@tbrul/tellthem/drivers/memory'
 ...
 buses: {
   memory: {

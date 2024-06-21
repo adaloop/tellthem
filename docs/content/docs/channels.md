@@ -7,7 +7,7 @@ Channels are the implementation of the communication between the driver and the 
 ## Named channels
 
 ```ts
-import { jsonEncoder } from 'tellthem/encoders/json'
+import { jsonEncoder } from '@tbrul/tellthem/encoders/json'
 
 export const channel = tellThem.channel({
   defaultBus: 'memory',
@@ -31,7 +31,7 @@ await channel.publish('Hello, world!')
 If you don't want to use a named channel, you can use a standalone channel.
 
 ```ts
-import { jsonEncoder } from 'tellthem/encoders/json'
+import { jsonEncoder } from '@tbrul/tellthem/encoders/json'
 
 await tellThem.subscribe('standalone-channel', jsonEncoder(), (message) => {
   console.log(message)
@@ -39,4 +39,3 @@ await tellThem.subscribe('standalone-channel', jsonEncoder(), (message) => {
 
 await tellThem.publish('standalone-channel', jsonEncoder(), 'Hello, world!')
 ```
-

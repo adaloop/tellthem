@@ -21,16 +21,16 @@ I wanted a simple driver based and typesafe library to communicate with my servi
 
 ## Installation
 ```bash
-npm install tellthem
+npm install @tbrul/tellthem
 ```
 
 ## Quick start
 
 The library use a manager you need to use to register buses.
 ```typescript
-import { TellThem } from 'tellthem';
-import { memory } from 'tellthem/drivers/memory';
-import { redis } from 'tellthem/drivers/redis';
+import { TellThem } from '@tbrul/tellthem';
+import { memory } from '@tbrul/tellthem/drivers/memory';
+import { redis } from '@tbrul/tellthem/drivers/redis';
 
 const tellThem = new TellThem({
   default: 'memory',
@@ -51,7 +51,7 @@ const tellThem = new TellThem({
 Once you created your manager, you will use it to create a channel.
 
 ```typescript
-import { jsonEncoder } from 'tellthem/encoders/json';
+import { jsonEncoder } from '@tbrul/tellthem/encoders/json';
 
 const channel = tellThem.channel({
   name: 'my-channel',
@@ -72,7 +72,7 @@ channel.subscribe((message) => {
 
 ### Typesafe channels
 
-Channels are typed using the encoder you used to create them. For example if you want to validate your messages using Zod, you can use the `zodJsonEncoder` from `tellthem/encoders`.
+Channels are typed using the encoder you used to create them. For example if you want to validate your messages using Zod, you can use the `zodJsonEncoder` from `@tbrul/tellthem/encoders`.
 
 ```typescript
 const channel = tellThem.channel({

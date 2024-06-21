@@ -26,7 +26,7 @@ yarn add amqplib
 ## Usage
 
 ```ts
-import { amqp } from 'tellthem/drivers/amqp'
+import { amqp } from '@tbrul/tellthem/drivers/amqp'
 ...
 buses: {
   amqp: {
@@ -44,7 +44,7 @@ buses: {
 
 ## Options
 
-For more detailed options, feel free to check the [`amqplib`](https://amqp-node.github.io/amqplib/channel_api.html) documentation for more details about the configuration. 
+For more detailed options, feel free to check the [`amqplib`](https://amqp-node.github.io/amqplib/channel_api.html) documentation for more details about the configuration.
 
 | Option     | Description                                 | Default |
 |------------|---------------------------------------------|--------|
@@ -53,4 +53,3 @@ For more detailed options, feel free to check the [`amqplib`](https://amqp-node.
 | `port`     | The port of the amqp broker.                | 5672   |
 | `username` | The username to connect on the amqp broker. | N/A    |
 | `password` | The password to connect on the amqp broker. | N/A    |
-

@@ -10,7 +10,7 @@ We use validation libraries to ensure that the messages are correctly typed befo
 
 ```ts
 import { z } from 'zod'
-import { zodJsonEncoder } from 'tellthem/encoders/zod'
+import { zodJsonEncoder } from '@tbrul/tellthem/encoders/zod'
 
 export const channel = tellThem.channel({
   defaultBus: 'memory',

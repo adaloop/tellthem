@@ -30,7 +30,7 @@ yarn add ioredis
 ## Usage
 
 ```ts
-import { redis } from 'tellthem/drivers/redis'
+import { redis } from '@tbrul/tellthem/drivers/redis'
 ...
 buses: {
   redis: {
@@ -51,5 +51,3 @@ For more detailed options, feel free to check the [`ioredis`](https://github.com
 | `port`     | The port of the redis server.     | 6379   |
 | `username` | The username used to connect.     | N/A    |
 | `password` | The password used to connect.     | N/A    |
-
-
