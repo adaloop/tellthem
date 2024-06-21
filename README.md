@@ -1,6 +1,6 @@
 <p align="center">
   <br/>
-    TellThem is an asynchronous communication library for Node.js.
+    <a href="https://tellthem.tbrul.dev/">TellThem</a> is an asynchronous communication library for Node.js.
   <br/>
 </p>
 
@@ -12,6 +12,8 @@
 - ✅ Typesafe channels
 - 📖 Well documented
 - 🧩 Easily extendable with your own encoders and drivers
+
+See documentation at [tellthem.tbrul.dev](https://tellthem.tbrul.dev)
 
 ## Why TellThem ?
 
@@ -68,7 +70,7 @@ channel.subscribe((message) => {
 });
 ```
 
-### Typesafe channels 
+### Typesafe channels
 
 Channels are typed using the encoder you used to create them. For example if you want to validate your messages using Zod, you can use the `zodJsonEncoder` from `tellthem/encoders`.
 

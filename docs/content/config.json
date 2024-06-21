@@ -6,11 +6,10 @@
     },
     "github": {
       "title": "TellThem on Github",
-      "href": "https://github.com/tom-brulin/tellthem"
+      "href": "https://github.com/tbrul/tellthem"
     }
   },
-  "search": {
-  },
-  "fileEditBaseUrl": "https://github.com/tom-brulin/tellthem/tree/main/docs",
+  "search": {},
+  "fileEditBaseUrl": "https://github.com/tbrul/tellthem/tree/main/docs",
   "copyright": "TellThem"
 }
