@@ -25,7 +25,7 @@ yarn add zod
 
 ```ts
 import { z } from "zod";
-import { zodJsonEncoder } from '@tbrul/tellthem/encoders/zod'
+import { zodJsonEncoder } from '@adaloop/tellthem/encoders/zod'
 
 const encoder = zodJsonEncoder({
   schema: z.object({

@@ -1,5 +1,5 @@
 {
-  "name": "@tbrul/tellthem",
+  "name": "@adaloop/tellthem",
   "description": "Simple driver based asynchronous communication library",
   "version": "0.0.5",
   "engines": {
@@ -37,9 +37,9 @@
     "@japa/expect-type": "^2.0.2",
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.5.22",
-    "@tbrul/eslint-config": "^1.0.3",
-    "@tbrul/prettier-config": "^1.0.3",
-    "@tbrul/tsconfig": "^1.0.3",
+    "@adaloop/eslint-config": "^1.0.7",
+    "@adaloop/prettier-config": "^1.0.7",
+    "@adaloop/tsconfig": "^1.0.7",
     "@testcontainers/hivemq": "^10.9.0",
     "@testcontainers/kafka": "^10.9.0",
     "@testcontainers/redis": "^10.9.0",
@@ -98,11 +98,11 @@
       "optional": true
     }
   },
-  "author": "tom-brulin",
+  "author": "adaloop <hello@adaloop.com>",
   "license": "MIT",
   "keywords": [
     "tellthem",
-    "tbrul",
+    "adaloop",
     "bus",
     "event",
     "pubsub",
@@ -110,9 +110,9 @@
     "queue"
   ],
   "eslintConfig": {
-    "extends": "@tbrul/eslint-config/package"
+    "extends": "@adaloop/eslint-config/package"
   },
-  "prettier": "@tbrul/prettier-config",
+  "prettier": "@adaloop/prettier-config",
   "publishConfig": {
     "access": "public",
     "tag": "latest"

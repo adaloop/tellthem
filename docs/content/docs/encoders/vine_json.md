@@ -25,7 +25,7 @@ yarn add @vinejs/vine
 
 ```ts
 import vine from '@vinejs/vine'
-import { vineJsonEncoder } from '@tbrul/tellthem/encoders/vine'
+import { vineJsonEncoder } from '@adaloop/tellthem/encoders/vine'
 
 const encoder = vineJsonEncoder({
   schema: vine.object({

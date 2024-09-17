@@ -9,17 +9,17 @@ TellThem is an ESM-only package. You will also need Node.js 18 or higher.
 :::codegroup
 ```sh
 // title: npm
-npm install @tbrul/tellthem
+npm install @adaloop/tellthem
 ```
 
 ```sh
 // title: pnpm
-pnpm add @tbrul/tellthem
+pnpm add @adaloop/tellthem
 ```
 
 ```sh
 // title: yarn
-yarn add @tbrul/tellthem
+yarn add @adaloop/tellthem
 ```
 :::
 
@@ -28,8 +28,8 @@ yarn add @tbrul/tellthem
 Once installed, you can configure TellThem by creating a manager.
 
 ```ts
-import { TellThem } from '@tbrul/tellthem'
-import { memory } from '@tbrul/tellthem/drivers/memory'
+import { TellThem } from '@adaloop/tellthem'
+import { memory } from '@adaloop/tellthem/drivers/memory'
 
 export const tellThem = new TellThem({
   defaultBus: 'memory',
@@ -51,7 +51,7 @@ export const tellThem = new TellThem({
 In order to use the full power of TellThem, you'll need to create a channel.
 
 ```ts
-import { jsonEncoder } from '@tbrul/tellthem/encoders/json'
+import { jsonEncoder } from '@adaloop/tellthem/encoders/json'
 
 export const channel = tellThem.channel({
   defaultBus: 'memory',

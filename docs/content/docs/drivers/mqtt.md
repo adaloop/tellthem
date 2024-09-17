@@ -30,7 +30,7 @@ yarn add mqtt
 ## Usage
 
 ```ts
-import { mqtt } from '@tbrul/tellthem/drivers/mqtt'
+import { mqtt } from '@adaloop/tellthem/drivers/mqtt'
 ...
 buses: {
   mqtt: {

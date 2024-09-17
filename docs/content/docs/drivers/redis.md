@@ -30,7 +30,7 @@ yarn add ioredis
 ## Usage
 
 ```ts
-import { redis } from '@tbrul/tellthem/drivers/redis'
+import { redis } from '@adaloop/tellthem/drivers/redis'
 ...
 buses: {
   redis: {

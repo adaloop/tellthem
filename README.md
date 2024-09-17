@@ -1,6 +1,6 @@
 <p align="center">
   <br/>
-    <a href="https://tellthem.tbrul.dev/">TellThem</a> is an asynchronous communication library for Node.js.
+    <a href="https://tellthem.adaloop.com/">TellThem</a> is an asynchronous communication library for Node.js.
   <br/>
 </p>
 
@@ -13,7 +13,7 @@
 - 📖 Well documented
 - 🧩 Easily extendable with your own encoders and drivers
 
-See documentation at [tellthem.tbrul.dev](https://tellthem.tbrul.dev)
+See documentation at [tellthem.adaloop.com](https://tellthem.adaloop.com)
 
 ## Why TellThem ?
 
@@ -21,16 +21,16 @@ I wanted a simple driver based and typesafe library to communicate with my servi
 
 ## Installation
 ```bash
-npm install @tbrul/tellthem
+npm install @adaloop/tellthem
 ```
 
 ## Quick start
 
 The library use a manager you need to use to register buses.
 ```typescript
-import { TellThem } from '@tbrul/tellthem';
-import { memory } from '@tbrul/tellthem/drivers/memory';
-import { redis } from '@tbrul/tellthem/drivers/redis';
+import { TellThem } from '@adaloop/tellthem';
+import { memory } from '@adaloop/tellthem/drivers/memory';
+import { redis } from '@adaloop/tellthem/drivers/redis';
 
 const tellThem = new TellThem({
   default: 'memory',
@@ -51,7 +51,7 @@ const tellThem = new TellThem({
 Once you created your manager, you will use it to create a channel.
 
 ```typescript
-import { jsonEncoder } from '@tbrul/tellthem/encoders/json';
+import { jsonEncoder } from '@adaloop/tellthem/encoders/json';
 
 const channel = tellThem.channel({
   name: 'my-channel',
@@ -72,7 +72,7 @@ channel.subscribe((message) => {
 
 ### Typesafe channels
 
-Channels are typed using the encoder you used to create them. For example if you want to validate your messages using Zod, you can use the `zodJsonEncoder` from `@tbrul/tellthem/encoders`.
+Channels are typed using the encoder you used to create them. For example if you want to validate your messages using Zod, you can use the `zodJsonEncoder` from `@adaloop/tellthem/encoders`.
 
 ```typescript
 const channel = tellThem.channel({

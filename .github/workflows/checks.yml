@@ -5,12 +5,12 @@ on:
 
 jobs:
   test:
-    uses: tbrul/.github/.github/workflows/node_test.yml@main
+    uses: adaloop/.github/.github/workflows/node_test.yml@main
     with:
       disable-windows: true
 
   lint:
-    uses: tbrul/.github/.github/workflows/node_lint.yml@main
+    uses: adaloop/.github/.github/workflows/node_lint.yml@main
 
   typecheck:
-    uses: tbrul/.github/.github/workflows/node_typecheck.yml@main
+    uses: adaloop/.github/.github/workflows/node_typecheck.yml@main

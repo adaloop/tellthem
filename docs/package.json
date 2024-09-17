@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "license": "UNLICENSED",
+  "imports": {
+    "#src/*": "./src/*.js"
+  },
   "scripts": {
     "export": "vite build && npm run download:sponsors && node --loader=ts-node/esm bin/build.ts",
     "postexport": "copyfiles -u 1 public/* public/**/* dist",
@@ -12,9 +14,6 @@
     "serve": "node --loader=ts-node/esm bin/serve.ts",
     "dev": "concurrently \"vite\" \"npm run serve\"",
     "test": "node ace test"
-  },
-  "imports": {
-    "#src/*": "./src/*.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.1.1",
@@ -47,5 +46,6 @@
     "@adonisjs/static": "^1.1.1",
     "@radix-ui/colors": "^3.0.0",
     "edge.js": "^6.0.1"
-  }
+  },
+  "license": "UNLICENSED"
 }

@@ -26,7 +26,7 @@ yarn add amqplib
 ## Usage
 
 ```ts
-import { amqp } from '@tbrul/tellthem/drivers/amqp'
+import { amqp } from '@adaloop/tellthem/drivers/amqp'
 ...
 buses: {
   amqp: {
