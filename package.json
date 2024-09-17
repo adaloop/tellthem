@@ -1,7 +1,7 @@
 {
   "name": "@adaloop/tellthem",
   "description": "Simple driver based asynchronous communication library",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "engines": {
     "node": ">=20.11.1"
   },
